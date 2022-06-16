@@ -3,9 +3,9 @@
 </div>
 <div style="text-align:center">info@wishknish.com | https://wishknish.com</div>
 
-# Technical Whitepaper v5.7
+# Technical Whitepaper v6.0
 ## Abstract
-Distributed-ledger-based solutions for large-scale application deployment, transaction settlement, and user governance offer significant benefits in the areas of transparency, security, and cost effectiveness. However, three major barriers to broad adoption remain (Critical Factors):
+Distributed-ledger-based solutions for large-scale application deployment, transaction settlement, and user governance offer significant benefits in the areas of transparency, security, and cost-effectiveness. However, three major barriers to broad adoption remain (Critical Factors):
 
 1. scalability and performance,
 2. future-resistant security,
@@ -42,9 +42,15 @@ With a DAG, each incoming transaction references multiple specifically chosen tr
 
 The term “future-resistance” implies the hardiness of a project’s security algorithms in the face of a changing technological landscape. Because modern DLTs in general are bleeding-edge technologies today, it is critical for distributed ledger projects such as Knish.IO to look far ahead in terms of possible security challenges on and beyond the horizon.
 
-Quantum computing is a concept that has the potential to truly throw a wrench into the works of most encryption mechanisms in use today [9], and therefore Knish.IO takes special precaution by its choice of quantum-resistant XMSS [6] (eXtended Merkle Signature Scheme) mechanism as a baseline algorithm for securing its molecular structure in a post-quantum world.
+Quantum computing is a concept that has the potential to truly throw a wrench into the works of most encryption mechanisms in use today [8], and therefore Knish.IO takes special precaution by its choice of quantum-resistant XMSS [6] (eXtended Merkle Signature Scheme) mechanism as a baseline algorithm for securing its molecular structure in a post-quantum world. XMSS has been recommended by NIST as a post-quantum alternative for stateful hash-based signatures [9].
 
-A key feature of XMSS is the reliance on one-time signatures via Winternitz One-Time Signatures Plus (WOTS+), which is leveraged by Knish.IO to help ensure a wallet’s continued integrity after each signed transaction via the process of *regeneration*. Below is a diagram of the XMSS tree construction [10]:
+A key feature of XMSS is the reliance on one-time signatures via Winternitz One-Time Signatures Plus (WOTS+), which is leveraged by Knish.IO to ensure that all keys used to sign transactions are regenerated after every use, and that no key is ever used twice.
+
+This mechanism helps protect wallet holders from transactions spoofed by adversaries, and process only those signed by legitimate wallet holders.
+Furthermore, because encryption keys are similarly recycled, decrypting a thread of metadata or messages becomes increasingly difficult for a bad actor.
+
+Below is a diagram of the XMSS tree construction [9]:
+
 
 ![alt text][xmss]
 
@@ -58,13 +64,13 @@ Legacy DLTs such as Bitcoin require an inordinate amount of energy in order to f
 
 Let’s get a sense of just how much environmental impact we have to contend with [7]:
 
-| Description  | Value |
-| ------------- | ------------- |
-| Bitcoin's current estimated annual electricity consumption* (TWh)  | 73.12  |
-| Country closest to Bitcoin in terms of electricity consumption  | Austria  |
-| Electricity consumed per transaction (KWh) | 838 |
-| Number of U.S. households that could be powered by Bitcoin | 6,770,506 |
-| Number of U.S. households powered for 1 day by the electricity consumed for a single transaction | 28.33 |
+| Description  | Value       |
+| ------------- |-------------|
+| Bitcoin's current estimated annual electricity consumption* | 151.84 TWh  |
+| Country closest to Bitcoin in terms of electricity consumption | Malaysia    |
+| Electricity consumed per transaction | 1647.12 KWh |
+| Number of U.S. households that could be powered by Bitcoin | 5,204,773,422   |
+| Number of U.S. households powered for 1 day by the electricity consumed for a single transaction | 56.46       |
 
 The reason for this massive energy drain is that the process of confirming new blocks being added to the ledger is an ever-escalating arms race of computing power under the Proof of Work consensus algorithm.
 
@@ -102,17 +108,17 @@ We see the following as critical sources of friction slowing or stopping consume
 
 # The Knish.IO Organism: Atoms, Molecules, and Cells
 
-Given the inefficiencies inherent in current-generation blockchain technologies, Knish.IO builds on their early successes by following a molecular model for describing its transactional qualities. As an efficient model frequently demonstrated in nature and science, it also serves as a concise summary of the functionality of each component within the model and allows for flexibility in visualizing the complex, multidimensional nature of our post-blockchain bio-DAG.
+Given the inefficiencies inherent in current-generation blockchain technologies, Knish.IO builds on their early successes by following a molecular model for describing its transactional qualities. As an efficient model frequently demonstrated in nature and science, it also serves as a concise summary of the functionality of each component within the model and allows for flexibility in visualizing the complex, multidimensional nature of the ledger which stores transactions, events, and metadata described by edge clients.
 
 To this end, we introduce the concept of **cells**, **molecules**, and **atoms**.
 
-- **Atoms** are micro-transactions that only perform a single, monodirectional action, such as removing X tokens from one wallet, adding Y tokens to another wallet, or sending a secure message to yet a third wallet.
-- **Molecules** are bundles of atoms which are either accepted or rejected all at once, and bond to (reference) a number of previous transactions to help facilitate a distributed consensus algorithm.
-- **Cells** are transactional microcosms defining the parameters (such as the hashing algorithm, the consensus mechanism, the virtual machine engine, governance model, etc.) for the behavior of every molecule within it.
+- **Atoms** are sub-transactions that only perform a single, monodirectional action, such as removing X tokens from one wallet, adding Y tokens to another wallet, or sending a secure message to yet a third wallet.
+- **Molecules** are bundles of atoms which are either accepted or rejected all at once, and bond to (reference) a number of previous transactions to help facilitate Knish.IO’s federated consensus model.
+- **Cells** are sharded sub-ledgers within the decentralized DAG environment, each serving one specific application, and defining rules for the behavior of every molecule within it.
 
-Taken together, the collection of cells, molecules, and atoms can be described as an **organism**.
+- Taken together, the collection of cells, molecules, and atoms can be described as an **organism**.
 
-By leveraging cells, molecules, and atoms, Knish.IO is capable of a network-bound scalability and transaction settlement within 5 seconds, regardless of the global transactional volume. In fact, as the network grows, we fully expect this interval to shrink to nearly-instantaneous validation, as multiple use-cases prop up each others' performance from across the DAG.
+By leveraging cells, molecules, and atoms, Knish.IO is capable of a network-bound scalability and transaction settlement within 5 seconds, regardless of the transactional volume. In fact, as the network grows, we fully expect this interval to shrink further.
 
 ![alt text][organism]
 
@@ -120,9 +126,9 @@ By leveraging cells, molecules, and atoms, Knish.IO is capable of a network-boun
 
 # Model: Molecule
 
-Transactions issued on Knish.IO are composed of a number of atomic micro-transactions, or simply atoms. In order to make sense of where the information is coming from and where it’s going, atoms are packaged into a bundle called a “molecule”.
+Transactions issued on Knish.IO are composed of a number of micro-transactions (atoms). In order to make sense of where the information is coming from and where it’s going, atoms are packaged into a bundle called a “molecule”.
 
-When new molecules are being bonded to the ledger, the atoms that compose them are either accepted or rejected all at once, never separately.
+When new molecules are being recorded to the ledger, the atoms that compose them are either accepted or rejected all at once, never separately.
 
 ![alt text][molecule]
 
@@ -140,7 +146,7 @@ The maximum number of cascades from *M*<sub>i</sub> up to a tip molecule represe
 
 The minimum number of cascades down from *M*<sub>i</sub> to *M*<sub>origin</sub> represents its “height”, *h*<sub>i</sub>.
 
-For *V* and *F* molecules, a “local height” may also be determined by counting the minimum number of cascades down from *M*<sub>i</sub> to the token creation molecule, *M*<sub>creation</sub>.
+For *V* molecules, a “local height” may also be determined by counting the minimum number of cascades down from *M*<sub>i</sub> to the token creation molecule, *M*<sub>creation</sub>.
 
 ![alt text][cascade]
 
@@ -150,36 +156,46 @@ Cascades are used to verify the integrity of the ledger and reference neighborin
 
 # Model: Atom
 
-A molecule contains at least one atom. Each atom comes in one of several single-purpose **isotopes**, allowing the atom to be tuned to a particular use case.
+A molecule contains at least one atom. Each atom comes in one of several single-purpose isotopes, allowing the atom to be tuned to a particular use case. These isotopes describe the “vocabulary” of the Knish.IO protocol.
 
-Possible atomic isotopes include but are not limited to:
+Supported atomic isotopes, as of the writing of this document, are:
 
-- Value (*V*) - moving fungible token value from one wallet to another
-- Non-fungible (*F*) - moving specific assets from one wallet to another
-- Metadata (*M*) - assigning or revoking metadata fields to/from a polymorphic asset
-- Creation (*C*) - declaring the creation of a new asset (such as a token)
-- Peering (*P*) - used for completing a bootstrapped peer handshake
-- Reputation (*R*) - used to report derogatory behavior in molecules
+- **Value** (*V*) - moves fungible scalar value, non-fungible unit objects, or partially fungible batches of scalar value from one wallet to another. V-atoms always come in triples: the first atom removes tokens from the source wallet; the second adds tokens to the destination wallet; and the third places the remaining tokens into a new wallet that will replace the first.
+- **Buffer** (*B*) - identical functionality to *V*, but operating on *allowance buffers* rather than *wallets*, typically used for peer-to-peer decentralized exchange and token staking scenarios.
+- **Metadata** (*M*) - assigns structured metadata (key:value pairs) to some arbitrary Meta Asset instance referenced by a class and unique identifier.
+- **Creation** (*C*) - declares the creation of a new virtual asset, which can take the form of a Token, a Wallet, or a Meta Asset class.
+- **Rules** (*R*) - used to describe granular policies (read, write, self-destruct, and logging) associated with some Meta Asset, as well as automation workflows and callbacks.
+- **Peering** (*P*) - used for initiating peer invite, coordinating handshakes between peers for the purpose of coordinating ledger states across diverse machines.
+- **Identity Continuity** (*I*) - (also called “ContinuID”) used for establishing a chain of personal custody between multiple molecules. Each transaction signed with the USER wallet requires that one I isotope is always present.
+- **User Access** (*U*) - used for requesting and managing personal access tokens for accessing privileged ledger activities and data.
+- **Token Request** (*T*) - used to request a specific type of Token from a federated node. If requirements are fulfilled, the node will sign and issue a V-isotope molecule completing the transfer.
+- **Append Request** (*A*) - used to request modifications of metadata from a federated node. If requirements are fulfilled, the node will sign and issue a M-isotope molecule updating the requested metadata.
 
-![alt text][atom]
+The first atom in a molecule is considered the “signing atom” and is critical in the signing and validation process. For any molecules that involve the movement of tokens, the first atom must be signed with the wallet (or buffer) from which tokens are being withdrawn; For all other types of modules, the first atom must be signed with the system-reserved USER token wallet.
 
-Atoms’ positions within the molecule represent their role in the molecule’s functionality. For instance, the first atom in the molecule determines the overall type of the molecule, which has implications concerning which other molecules it may bond with (see **Knish.IO Tip Selection Algorithm**).
+*V*-isotope molecules are always signed with wallet-bearing token in the first *V*-isotope atom:
+
+![alt text][vatom]
+
+*M*-isotope molecule are always signed with USER-token wallet designated in prior *I*-isotope:
+
+![alt text][matom]
+
+*I*-isotope atoms and the third *V*-isotope atoms serve an identical purpose: to establish the next wallet in the user’s custody. However, in the case of *V*-isotope atoms, token remainder balance is also shifted to the new wallet.
 
 ---
 
 # Model: Cell
 
-Certain types of molecules are grouped together by their `cell_id` field. This tells receiving nodes that certain non-standard procedures need to be followed when dealing with this molecule. Cells are typically used by Enterprise deployments of Knish.IO that require proprietary encryption algorithms, consensus algorithms, or governance models.
-
-Molecules with an *M* isotope that are bound to a cell may only reference other molecules in the same cell. Similarly, *V* and *F* molecules involving tokens issued by a cell would also bond within that same cell. The cell effectively becomes a sub-ledger for that specific use-case. Other types of molecules may bond across cells, providing multiple, diverse paths towards optimally scalable performance.
+Molecules are always associated with the Cell serving the specific decentralized application or dApp that originated the transaction, sharding the overall collection of data stored on the Knish.IO ledger around application-specific domains to ensure optimally scalable performance without sacrificing decentralization. Molecules and the process of executing their atomic payloads behave according to the parameters of their Cell, established by the custodial entity operating the dApp.
 
 ![alt text][cell]
 
-Molecules normally behave according to the parameters of their cell (where applicable). In the case where there is no cell defined, molecules will rely on a baseline set of parameters defined by Knish.IO:
+Parameters that can be controlled at the Cell level include (but are not limited to):
 
-- *Consensus algorithm:* Knish.IO Asynchronous Mesh
-- *Virtual Machine:* Knish.IO PHP-based Logic
-- *Hashing Algorithm:* SHAKE256 or KangarooTwelve (12-round Keccak-p) [4]
+- *Hashing Algorithm:* SHAKE256 (SHA3-based variable-length XOR function) [3]
+- *Encryption Algorithm:* Elliptic Curve ED25509 [4]
+- *Wallet Alphabet:* BASE64
 
 ---
 
@@ -189,9 +205,11 @@ The Meta model is a virtual object used for maintaining and retrieving a store o
 
 ---
 
-# Model: Wallet, Wallet Bundle
+# Model: Wallet, Buffer, Wallet Bundle
 
-Wallets are virtual buckets for storing assets (tokens) and information (meta), and may be employed in the more traditional sense (users sending and receiving cryptocurrency payments), or in more exotic use-case-specific ways (for example, tracking shipping containers arriving at port). Automated logic may also be attached to Wallets, allowing them to perform authorized transactions on behalf of their owner (for example, automatically splitting royalties from the sale of a book between author and publisher).
+Wallets are virtual buckets for storing assets (tokens) and information (meta), and may be employed in the more traditional sense (users sending and receiving cryptocurrency payments or NFTs), or in more exotic use-case-specific ways (for example, tracking shipping containers arriving at port).
+
+Buffers are specialized wallets used for coordinating automation allowances: fungible, non-fungible, or partially-fungible assets may be buffered for automated peer-to-peer exchange and staking use-cases. Unlike wallets, buffers cannot transfer tokens to third-parties, other than via server-side automation.
 
 While a WOTS+ private key can be used to sign any molecule, repeat usages of a key will be rejected by the ledger because each use exposes exactly 50% of the key, allowing an attacker to compromise signed assets should key re-use be allowed. Because of this single-use nature of the private keys, it becomes necessary to regenerate a wallet with a new private key.
 
@@ -221,7 +239,7 @@ Given the biometric secret *S*, an integer `position`, and a string `token` argu
 
 1. Convert `position` into hexadecimal notation
 2. Add the converted hex `position` to *S*. The resulting hexadecimal string will be our “indexed key”, *K*<sub>index</sub>
-4. Create a Keccak sponge
+4. Create a SHAKE256 sponge
 5. Absorb *K*<sub>index</sub> into the sponge
 6. If `token` is provided, absorb `token` into the sponge as well
 7. Squeeze a 4096 byte (2048 character) hex value from the sponge and designate it as the "intermediate key" *K*<sub>int</sub>
@@ -238,9 +256,9 @@ Given the biometric secret *S*, an integer `position`, and a string `token` argu
 Once we have obtained the wallet private key *K*<sub>k</sub>, we can use it to derive a wallet address for this key.
 
 1. Subdivide *K*<sub>k</sub> into 16 fragments of 256 bytes (128 characters) each
-2. Create a Keccak sponge for digest *D*<sub>k</sub>
+2. Create a SHAKE256 sponge for digest *D*<sub>k</sub>
 3. Iterate across each fragment as *S*<sub>i</sub>
-    - Create a Keccak sponge for *S*<sub>i</sub>
+    - Create a SHAKE256 sponge for *S*<sub>i</sub>
     - Iterate 16 times:
         - Absorb *S*<sub>i</sub>
         - Squeeze a hashed 256 byte (128 character) hexadecimal string out of the sponge
@@ -257,9 +275,9 @@ Once we have obtained the wallet private key *K*<sub>k</sub>, we can use it to d
 
 # Algorithm: Molecule Construction
 
-When a client initiates a new transaction, it must construct and correctly sign a molecule to represent that transaction and all of its relevant data, before sending it to a receiving node which will then cryptographically secure such data to ensure its validity, and (in certain cases) ensure that third-party observers are not able to violate the privacy of the participants.
+When a client initiates a new transaction, it must construct and correctly sign a molecule to represent that transaction and all of its relevant data, before sending it to a receiving node which will then cryptographically verify such data to ensure its validity, and (in certain cases) ensure that third-party observers are not able to violate the privacy of the participants.
 
-This procedure involves the generation of a private key for the next available atomic position, the hashing of atomic data to generate a molecular hash, the creation of a WOTS+ signature for the molecule, and finally, the creation of a new quantum-resistant KnishIO wallet to receive any leftover tokens remaining, or to serve as the user's next molecule's signatory.
+This procedure involves the generation of a private key for the next available atomic position, the hashing of atomic data to generate a molecular hash, the creation of a WOTS+ signature for the molecule, and finally, the creation of a new quantum-resistant wallet to receive any leftover tokens remaining, or to serve as the user's next molecule's signatory.
 
 1. Client obtains biometric secret
 2. Client generates atomic structure to fulfill transaction and shift remaining balance
@@ -274,11 +292,14 @@ This procedure involves the generation of a private key for the next available a
 
 ## Step 1: Client obtains biometric secret
 
-Each molecule must be approved by the sender, and to that end a robust biometric solution is recommended to transform the sender’s face, fingerprints, and/or voice print (or a combination of any of the above) into a unique 2048-character hexadecimal string.
+Each molecule must be approved by the sender, and to that end an external biometric solution may be utilized to transform the sender’s face, fingerprints, and/or voice print (or a combination of any of the above) into a unique keypair.
 
-This biometric secret, *S*, may then be used as a seed to generate a private key for the new quantum-resistant Knish.IO wallet. The public key becomes the wallet address.
+Alternatively, other forms of authentication may be used, including OAuth, NFC, smart cards, and other types of credentials.
 
-Each private key may only be used securely once, and neither S nor the wallet private key needs to necessarily be stored in order to function correctly.
+The actual method of biometric collection depends on use case implementation, but the result is always the same: a 2048-symbol hexadecimal string.
+
+This biometric secret, *S*, may then be used as a seed to generate an infinite number of one-time-use private keys for the new quantum-resistant Knish.IO wallet. The public key becomes the wallet address.
+Each private key may only be used securely once, and neither  nor the wallet private key needs to necessarily be stored in order to function correctly.
 
 ![alt text][biometrics]
 
@@ -286,20 +307,21 @@ Each private key may only be used securely once, and neither S nor the wallet pr
 
 In this step we must generate all the necessary atoms for molecule *M* to fulfill the requirements of the transaction.
 
-1. Build the primary atom (first unused private key position for the token). This normally represents a destructive transaction from the sender’s wallet.
-2. Build the secondary atom (next position). This normally represents a constructive transaction to the recipient’s wallet.
-3. Build any additional atoms necessary to fulfill the requirements of the transaction (for example, delivering tokens to multiple recipients).
-4. Because each sending wallet needs to fully expend its token balance, we may need to shift excess tokens into a regenerated wallet, so the final atom may be used for this purpose.
-5. You will end up with a series of atoms like this (V isotopes shown in example):
+1. Build the primary atom (lowest index in the molecule). This normally represents a destructive transaction from the sender’s wallet.
+2. Build the secondary atom (next index). This normally represents a constructive transaction to the recipient’s wallet.
+3. Build any additional atoms necessary to fulfill the requirements of the transaction (for example, utilizing the sender’s wallet to fund multiple recipients with one transaction, or delivering message metadata to the recipient).
+4. The last *V* isotope atom would reference a newly-created remainder wallet, which may receive any excess tokens not spent in the first atom.
+
+You will end up with a series of atoms like this (*V* isotopes shown in example), capped off with an *I* isotope to establish chain of custody:
 
 ![alt text][atoms]
 
 ## Step 3: Client creates a molecular hash of the atoms
 
-Now that the atoms are ready, we must hash their contents together to produce a molecular hash. This is later used to ensure that each atom in fact belongs to the molecule and nothing has been added or removed along the way.
+Now that the atoms are ready, the Knish.IO SDK will hash them together to produce a molecular hash. This is later used to ensure that each atom in fact belongs to the molecule and no data or instructions have been added, removed, or otherwise tampered with along the way.
 
 1. Arrange each atom *A*<sub>1</sub>, ..., *A*<sub>i</sub> in *M* by order of their position. Denote position as *k*
-2. Create a Keccak sponge instance for *M*
+2. Create a SHAKE256 sponge instance for *M*
 3. Iterate across each atom as *A*<sub>k</sub>
 4. Absorb each of *A*<sub>k</sub>’s fields into the sponge in this specific order: `position`, total number of atoms, `wallet_address`, `isotope`, `token` (if present), `value` (if present), and `created_at`
 5. Squeeze *M*’s sponge to produce a 128 byte (64 character) hexadecimal string
@@ -326,7 +348,7 @@ Integer:  -8  -7  -6  -5  -4  -3  -2  -1   0   1   2   3   4   5   6   7   8
         - If &sum;<sub>m</sub> < 0 and *I*<sub>m</sub> < 8, let *H*<sub>m</sub>[*i*] = *H*<sub>m</sub>[*i*] + 1
         - If &sum;<sub>m</sub> == 0, stop the iteration
 4. Subdivide *K*<sub>k</sub> into 32 segments of 128 bytes (64 characters) each
-5. Create a Keccak sponge
+5. Create a SHAKE256 sponge
 6. Create empty string *O*
 7. Iterate across each segment of *K*<sub>k</sub> as *K*<sub>i</sub>
     - Iterate a number of times equal to 8 - *H*<sub>m</sub>[*i*]
@@ -373,7 +395,7 @@ Base-17:   0   1   2   3   4   5   6   7   8   9   A   B   C   D   E   F   G
 Integer:  -8  -7  -6  -5  -4  -3  -2  -1   0   1   2   3   4   5   6   7   8
 ```
 4. Subdivide *O* into 32 segments of 128 bytes (64 characters) each
-5. Create a Keccak sponge
+5. Create a SHAKE256 sponge
 6. Create empty string *D*
 7. Iterate across each segment of *O* as *O*<sub>i</sub>
     - Iterate a number of times equal to 8 + *H*<sub>m</sub>[*i*]
@@ -506,7 +528,7 @@ Each node may have up to 100 peers, though starting at 50, each broadcast by the
 
 The first peer a node connects to must be ‘bootstrapped’ - manually or automatically added in the course of an interaction.
 
-For added trust, visiting any **WishKnish Storefront** or other *‘Powered by KnishIO’* deployment in a web browser allows any user to validate the authenticity of the node by clicking the Knish.IO logo. The resulting page will provide reputational information about this node, as well as instructions for manually bootstrapping it, if so desired.
+For added trust, visiting any **WishKnish Storefront** or other *‘Powered by Knish.IO’* deployment in a web browser allows any user to validate the authenticity of the node by clicking the Knish.IO logo. The resulting page will provide reputational information about this node, as well as instructions for manually bootstrapping it, if so desired.
 
 Should the user choose to interact with this node by partaking in a transaction, they will become the user’s node’s first peer automatically, without any action needed by the user.
 
@@ -736,14 +758,13 @@ This section describes the proposed relational database structure that nodes may
 
 1. CryptoKitties craze slows down transactions on Ethereum, BBC article https://www.bbc.com/news/technology-42237162
 2. Directed Acyclic Graph, Wikipedia article https://en.wikipedia.org/wiki/Directed_acyclic_graph
-3. Ethereum Yellow Paper https://ethereum.github.io/yellowpaper/paper.pdf
-4. KangarooTwelve: fast hashing based on Keccak-p https://keccak.team/kangarootwelve.html 
-5. Ethereum Sharding FAQ https://github.com/ethereum/wiki/wiki/Sharding-FAQs 
-6. XMSS: eXtended Merkle Signature Scheme https://www.rfc-editor.org/rfc/pdfrfc/rfc8391.txt.pdf
-7. Summary of Annual Household Site Consumption and Expenditures in the U.S.—Totals and Intensities, 2015 https://www.eia.gov/consumption/residential/data/2015/c&e/pdf/ce1.1.pdf
-8. Bitcoin Energy Consumption Index https://digiconomist.net/bitcoin-energy-consumption
-9. Post-Quantum Cryptography https://en.wikipedia.org/wiki/Post-quantum_cryptography 
-10. XMSS – A Practical Forward Secure Signature Scheme based on Minimal Security Assumptions https://eprint.iacr.org/2011/484.pdf
+3. SHA-3 Standard: Permutation-Based Hash and Extendable-Output Functions https://www.nist.gov/publications/sha-3-standard-permutation-based-hash-and-extendable-output-functions
+4. Digital Signature Standard (DSS) https://csrc.nist.gov/publications/detail/fips/186/5/draft
+5. Ethereum Sharding FAQ https://github.com/ethereum/wiki/wiki/Sharding-FAQs
+6. XMSS – A Practical Forward Secure Signature Scheme based on Minimal Security Assumptions https://eprint.iacr.org/2011/484.pdf
+7. Bitcoin Energy Consumption Index https://digiconomist.net/bitcoin-energy-consumption
+8. Post-Quantum Cryptography https://en.wikipedia.org/wiki/Post-quantum_cryptography 
+9. Recommendation for Stateful Hash-Based Signature Schemes https://csrc.nist.gov/publications/detail/sp/800-208/final
 
 &copy; 2019, WishKnish Corp. All rights reserved.
 
@@ -754,10 +775,12 @@ This section describes the proposed relational database structure that nodes may
 [molecule]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/molecule.png "Knish.IO Molecule Diagram"
 [cascade]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/cascade.png "Knish.IO Cascade Diagram"
 [atom]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/atom.png "Knish.IO Atom Diagram"
+[atoms]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/atoms.png "Knish.IO V and I Atom Arrangement"
 [cell]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/cell.png "Knish.IO Cell Diagram"
 [bundle]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/bundle.png "Knish.IO Bundle Diagram"
 [biometrics]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/biometrics.jpg "Knish.IO Biometric UX"
-[atoms]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/atoms.png "Knish.IO Atoms Diagram"
+[vatom]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/vatom.png "Knish.IO V-Isotope Molecule Diagram"
+[matom]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/matom.png "Knish.IO M-Isotope Molecule Diagram"
 [walletkey]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/walletkey.png "Wallet Key Generation"
 [address]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/address.png "Wallet Address Generation"
 [mcrw]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/equation-mcrw.png "Markov Chain Random Walk Probability"
