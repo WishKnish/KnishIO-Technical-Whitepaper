@@ -112,17 +112,21 @@ We see the following as critical sources of friction slowing or stopping consume
 
 ## Critical Factor 5: Decentralization & Resilience
 
+> We must be able to measure blockchain decentralization before we can improve it. - Balaji S. Srinivasan, Former CTO of Coinbase
+
 Distributed systems much achieve consensus on the "truth" of the ledger in order to function, and the greater the number of validators able to independently verify the authenticity of data, the more resilient that ledger becomes to tampering.
 
 One empirical measurement of decentralization is the Nakamoto Coefficient [10]. It is a number indicating the minimum number of entities in a ledger subsystem that need to collude (or be affected by bad actors) in order to compromise the system:
 
 ![Nakamoto Coefficient Algorithm][nakamoto]
 
-Based on the competitive nature of the most popular consensus algorithms (Proof of Work and Proof of Stake), it is natural for "winners" to be determined by the amount of hashrate or stakeable token assets they are able to contribute. This, in turn, is dictated by wealth: the more liquid capital an entity possesses, the more mining equipment or stakeable tokens they are able to acquire, the greater the amount of control over the consensus process. Over time, this type of system will degrade towards centralization of control, and a measured reduction of the Nakamoto Coefficient.
+Based on the competitive nature of the most popular consensus algorithms (Proof of Work and Proof of Stake), it is natural for "winners" to be determined by the amount of hashrate or stakeable token assets they are able to contribute. This, in turn, is dictated by wealth: the more liquid capital an entity possesses, the more mining equipment or stakeable tokens they are able to acquire, the greater the amount of control over the consensus process. Over time, this type of system will degrade towards centralization of control, resulting in a measurable decline of the Nakamoto Coefficient.
 
-Knish.IO's noncompetitive consensus mechanism ensures that every stakeholder has an equal amount of influence over the ledger, by organizing into so-called "Anchors", or dApp-specific load-balancing hierarchies of nodes that serve as the primary entry point for that specific dApp's transactions. Each respective anchor can be scaled horizontally (by adding additional nodes) or vertically (by making each node more powerful).
+Knish.IO's noncompetitive consensus mechanism is designed to ensure that every stakeholder has an equal amount of influence over the ledger, by organizing into so-called "Anchors", or dApp-specific load-balancing hierarchies of nodes that serve as the primary entry point for that specific dApp's transactions.
 
 ![Knish.IO Peering Infrastructure][infrastructure]
+
+Each respective anchor is incentivized to behave correctly not via winning mining or staking rewards collected through gas, but via business continuity: if an anchor is not consistent with the rest of its peers' state, its reputation will decline algorithmically until it is no longer able to broadcast transactions to its peers.
 
 ---
 
