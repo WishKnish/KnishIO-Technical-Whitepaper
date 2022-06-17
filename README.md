@@ -1,20 +1,26 @@
 <div style="text-align:center">
-  <img src="https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/KnishIO-Logo.png" alt="Knish.IO: Post-Blockchain Platform" />
+  <img src="https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/KnishIO-Logo.png" alt="Knish.IO: Post-Blockchain Platform" />
 </div>
 <div style="text-align:center">info@wishknish.com | https://wishknish.com</div>
 
 # Technical Whitepaper v6.0
+
 ## Abstract
-Distributed-ledger-based solutions for large-scale application deployment, transaction settlement, and user governance offer significant benefits in the areas of transparency, security, and cost-effectiveness. However, three major barriers to broad adoption remain (Critical Factors):
+
+Distributed-ledger-based solutions for large-scale application deployment, transaction settlement, and user governance offer significant benefits in the areas of transparency, security, and cost-effectiveness. However, five major barriers to broad adoption remain (Critical Factors):
 
 1. scalability and performance,
 2. future-resistant security,
-3. resource requirements and environmental impact, and
-4. user-friendliness and transparency
+3. resource requirements and environmental impact,
+4. user-friendliness and transparency, and
+5. decentralization and resilience
 
 Current leading solutions for building decentralized applications (dApps) leverage one of several consensus algorithms, including the computationally expensive Proof-of-Work (PoW), the much less transparent and potentially insecure Delegated Proof of Stake (DPoS), and the oligarchic Proof of Stake (PoS) where wealth equals influence. Each of these popular consensus algorithms sacrifices one or more Critical Factor in order to function. The purpose of this whitepaper is to demonstrate the Knish.IO distributed ledger technology, and its solution for effectively maintaining all four Critical Factors simultaneously while delivering state of the art deployments for dApps.
 
+---
+
 ## Introduction
+
 Since the Satoshi Nakamoto whitepaper, blockchain architecture (as one possible application of DLT - distributed ledger technology) has found initial trial applications in many industries, including banking, e-commerce, transportation, supply chain management, communication, and more. New applications are being imagined daily, and there seems to be no limit to the transformative reach of decentralization. However, before any single DLT solution can truly take hold, and position itself as a viable option for the long term, it must overcome the challenge of delivering four Critical Factors without which their influence will be limited to die-hard fans, early adopters, and blockchain enthusiasts.
 
 WishKnish proposes a novel DLT solution that attempts to address all four Critical Factors:
@@ -22,6 +28,7 @@ WishKnish proposes a novel DLT solution that attempts to address all four Critic
 ---
 
 ## Critical Factor 1: Scalability & Performance
+
 > “Scaling is the key problem to solve in terms of any blockchain-related tech.
 > Those who solve it first, will have a massive advantage.”- Mike Novogratz
 
@@ -31,13 +38,14 @@ An illustrative example [1] of this phenomenon is the recent advent and populari
 
 In the case of Knish.IO, a directed acyclic graph (DAG) data structure is employed to fulfill the scalability requirement. [2] In mathematics and computer science, a DAG is a finite directed graph with no directed cycles. That is, it consists of finitely many vertices and edges, with each edge directed from one vertex to another, such that there is no way to start at any vertex v and follow a consistently-directed sequence of edges that eventually loops back to v again. Equivalently, a DAG is a directed graph that has a topological ordering, a sequence of vertices such that every edge is directed from earlier to later in the sequence.
 
-![alt text][dag]
+![Directed Acyclic Graph][dag]
 
 With a DAG, each incoming transaction references multiple specifically chosen transactions that came before it, and performing a verification procedure on each, to ensure that it has a valid signature.
 
 ---
 
-## Critical Factor 2: Platform Security and Future-Resistance
+## Critical Factor 2: Platform Security & Future-Resistance
+
 > “As organisms evolve through changes in their DNA, blockchain protocols evolve through changes in their code. And like biological organisms, the most adaptive blockchains will be the ones that survive and thrive.”- Fred Ehrsam, Coinbase
 
 The term “future-resistance” implies the hardiness of a project’s security algorithms in the face of a changing technological landscape. Because modern DLTs in general are bleeding-edge technologies today, it is critical for distributed ledger projects such as Knish.IO to look far ahead in terms of possible security challenges on and beyond the horizon.
@@ -52,7 +60,7 @@ Furthermore, because encryption keys are similarly recycled, decrypting a thread
 Below is a diagram of the XMSS tree construction [9]:
 
 
-![alt text][xmss]
+![XMSS Tree][xmss]
 
 ---
 
@@ -74,11 +82,7 @@ Let’s get a sense of just how much environmental impact we have to contend wit
 
 The reason for this massive energy drain is that the process of confirming new blocks being added to the ledger is an ever-escalating arms race of computing power under the Proof of Work consensus algorithm.
 
-Instead of forcing nodes to compete for who gets to validate a block of transactions by performing what is essentially “busy-work,” Knish.IO takes a very different approach - paying it forward.
-
-Knish.IO nodes are typically hosted by enterprise deployments, community deployments, and via WishKnish Storefronts - a user-friendly wrapper around complex decentralized systems to present a branded e-commerce front end - and record signed molecules sent in by their customers. A Storefront that wishes for their customers’ molecules to be bonded into the ledger must first validate two or more molecules that came from elsewhere.
-
-The process is both asynchronous and Byzantine fault tolerant, while ensuring that more molecules receive validation than are created - meaning that it is prepared to handle a sudden surge of traffic gracefully, and without degradation of performance.
+Instead of forcing nodes to compete for who gets to validate a block of transactions by performing what is essentially “busy-work,” Knish.IO takes a very different approach - a "pay-it-forward" approach that is both asynchronous and Byzantine fault tolerant, while ensuring that more molecules receive validation than are created - meaning that it is prepared to handle a sudden surge of traffic gracefully, and without degradation of security.
 
 ---
 
@@ -92,17 +96,57 @@ It is therefore our mission to bring mass adoption to the public by wrapping com
 
 We see the following as critical sources of friction slowing or stopping consumer adoption:
 
-1. **Storage of secret keys.** Forcing users to rely on software wallets, hardware wallets, paper wallets, cold storage, and other options for keeping a secret key is a lot to ask of consumers, especially when all they want to do is buy a cup of coffee with the tokens in their wallet. By leveraging biometric signatures in lieu of a secret key, users can skip the overwhelming storage options, and rely purely on device sensors and (optionally) two-factor authentication to derive their biometric signature each time they need to authorize an operation. Additionally, zero-knowledge proofs (ZKPs) can be utilized for any password-based authentication, to further increase account safety and reduce the owner’s data exposure.
+1. **Storage of secret keys.** Forcing users to rely on software wallets, hardware wallets, paper wallets, cold storage, and other options for keeping a secret key is a lot to ask of consumers, especially when all they want to do is buy a cup of coffee with the tokens in their wallet. By leveraging biometric signatures and other modern passwordless mechanisms in lieu of a secret key, users can skip the overwhelming storage options, and rely purely on device sensors and (optionally) two-factor authentication to derive their signature each time they need to authorize an operation.
 
 2. **Gas.** The concept of having to first purchase a supply of tokens before being able to transact on a ledger is inherently damaging to consumer uptake. Gas is used by Ethereum and many other distributed ledgers to subsidize verification by validators, but in the case of Knish.IO, validation is performed on random molecules by the entity bonding a new molecule into the ledger, essentially paying it forward, and removing the need for gas.
 
 3. **Address naming convention.** A typical Ethereum address looks like this: 0xec824C1aF7304727eC92c71FfFEeDc0d6C38Eb0D. Imagine trying to tell a friend where to send a payment. Unless you do a lot of copying and pasting, or rely on a QR-code / NFC scanning solution, it will be very difficult indeed. Knish.IO introduces the concept of “slugs” - alphanumeric reference strings that are defined by the user, to give their Knish.IO bundle address a friendly, memorable name.
 
-4. **Node administration and governance.** If you are adventurous enough to deploy your own node, users can expect potentially intimidating command line deployment, configuration via direct file editing, and a general lack of flexibility in how the node is utilized. Conversely, one way of administering Knish.IO nodes is via WishKnish Storefronts - a user-friendly GUI designed for node administration and distributed ledger governance, as well as for e-commerce and content management, turning a passive node into a potential online community and a source of revenue.
+4. **Node administration and governance.** If you are adventurous enough to deploy your own node, users can expect potentially intimidating command line deployment, configuration via direct file editing, and a general lack of flexibility in how the node is utilized. Conversely, one way of administering Knish.IO nodes is via KnishOS - a user-friendly GUI designed for node administration, digital asset / NFT management, and distributed ledger governance, as well as for e-commerce and general content management, turning a passive node into a potential online community and a source of revenue.
 
-![alt text][create]
+![Create Token Screenshot][create]
 
-5. **Hardware requirements.** Legacy blockchain platforms - especially those geared towards inefficient consensus mechanisms - have spawned a shift in hardware optimization to take full advantage of mining and obtain more hashing power. Expensive, power-hungry ASICs, mining-optimized GPUs, or in some cases, even more exotic requirements - such as tryte-based logic chips - to take full advantage of the software. Knish.IO is designed for the lowest common denominator - web servers running PHP-compatible code, a flexible selection of relational database engines, and JavaScript-based client-side hashing - make it easy to deploy (and afford).
+5. **Hardware requirements.** Legacy blockchain platforms - especially those geared towards inefficient consensus mechanisms - have spawned a shift in hardware optimization to take full advantage of mining and obtain more hashing power. Expensive, power-hungry ASICs, mining-optimized GPUs, or in some cases, even more exotic requirements - such as tryte-based logic chips - to take full advantage of the software. Knish.IO is designed for inexpensive, easy to deploy infrastructure. For this reason, Knish.IO is one of the few distributed ledgers equally capable of operating on both a high-powered supercomputing cloud and a $35 Raspberry Pi single-board computer.
+
+---
+
+## Critical Factor 5: Decentralization & Resilience
+
+Distributed systems much achieve consensus on the "truth" of the ledger in order to function, and the greater the number of validators able to independently verify the authenticity of data, the more resilient that ledger becomes to tampering.
+
+One empirical measurement of decentralization is the Nakamoto Coefficient [10]. It is a number indicating the minimum number of entities in a ledger subsystem that need to collude (or be affected by bad actors) in order to compromise the system:
+
+![Nakamoto Coefficient Algorithm][nakamoto]
+
+Based on the competitive nature of the most popular consensus algorithms (Proof of Work and Proof of Stake), it is natural for "winners" to be determined by the amount of hashrate or stakeable token assets they are able to contribute. This, in turn, is dictated by wealth: the more liquid capital an entity possesses, the more mining equipment or stakeable tokens they are able to acquire, the greater the amount of control over the consensus process. Over time, this type of system will degrade towards centralization of control, and a measured reduction of the Nakamoto Coefficient.
+
+Knish.IO's noncompetitive consensus mechanism ensures that every stakeholder has an equal amount of influence over the ledger, by organizing into so-called "Anchors", or dApp-specific load-balancing hierarchies of nodes that serve as the primary entry point for that specific dApp's transactions. Each respective anchor can be scaled horizontally (by adding additional nodes) or vertically (by making each node more powerful).
+
+![Knish.IO Peering Infrastructure][infrastructure]
+
+---
+
+# Interfacing with Knish.IO Nodes
+
+The process of developing Knish.IO integrations with new and existing applications is simple and extensible, through the use of open-source software development kits (SDKs) in several popular languages, allowing developers to focus on the user experience and rapidly deploying their dApp.
+
+Currently available Knish.IO SDKs:
+
+1. [JavaScript](https://github.com/WishKnish/KnishIO-Client-JS)
+2. [PHP](https://github.com/WishKnish/KnishIO-Client-PHP)
+3. [Kotlin/Java](https://github.com/WishKnish/KnishIO-Client-Kotlin)
+4. [Python](https://github.com/WishKnish/KnishIO-Client-Python)
+5. [C++](https://github.com/WishKnish/KnishIO-Client-CPP)
+
+Knish.IO node servers themselves are administered via:
+
+1. [Artisan](https://laravel.com/docs/9.x/artisan)-based command line tools
+2. Industry-standard GraphQL-based APIs
+3. KnishOS - a user-friendly GUI designed for node administration and distributed governance
+
+They are designed to operate in a lightweight, cloud or self-hosted environment - simple hardware (potentially as lightweight as a Raspberry Pi) running PHP-compatible code, with a flexible selection of relational database engines, make it easy to deploy (and maintain).
+
+![Knish.IO Architecture Diagram][architecture]
 
 ---
 
@@ -112,7 +156,7 @@ Given the inefficiencies inherent in current-generation blockchain technologies,
 
 To this end, we introduce the concept of **cells**, **molecules**, and **atoms**.
 
-- **Atoms** are sub-transactions that only perform a single, monodirectional action, such as removing X tokens from one wallet, adding Y tokens to another wallet, or sending a secure message to yet a third wallet.
+- **Atoms** are sub-transactions that only perform a single, monodirectional action, such as removing X tokens from one wallet, adding Y tokens to another wallet, or contributing secure metadata to a virtual schema.
 - **Molecules** are bundles of atoms which are either accepted or rejected all at once, and bond to (reference) a number of previous transactions to help facilitate Knish.IO’s federated consensus model.
 - **Cells** are sharded sub-ledgers within the decentralized DAG environment, each serving one specific application, and defining rules for the behavior of every molecule within it.
 
@@ -120,7 +164,7 @@ To this end, we introduce the concept of **cells**, **molecules**, and **atoms**
 
 By leveraging cells, molecules, and atoms, Knish.IO is capable of a network-bound scalability and transaction settlement within 5 seconds, regardless of the transactional volume. In fact, as the network grows, we fully expect this interval to shrink further.
 
-![alt text][organism]
+![Knish.IO Organism Diagram][organism]
 
 ---
 
@@ -130,7 +174,7 @@ Transactions issued on Knish.IO are composed of a number of micro-transactions (
 
 When new molecules are being recorded to the ledger, the atoms that compose them are either accepted or rejected all at once, never separately.
 
-![alt text][molecule]
+![Knish.IO Molecule Diagram][molecule]
 
 Molecules form **bonds** with other molecules to help secure the ledger in an asynchronous fashion. Each molecule MUST bond with other molecules before it can be accepted into the ledger. This is performed using the **tip selection algorithm** and **molecular bonding algorithm** described further herein.
 
@@ -148,7 +192,7 @@ The minimum number of cascades down from *M*<sub>i</sub> to *M*<sub>origin</sub>
 
 For *V* molecules, a “local height” may also be determined by counting the minimum number of cascades down from *M*<sub>i</sub> to the token creation molecule, *M*<sub>creation</sub>.
 
-![alt text][cascade]
+![Knish.IO Cascade Diagram][cascade]
 
 Cascades are used to verify the integrity of the ledger and reference neighboring molecules that are referenced by or are referencing the given molecule.
 
@@ -175,11 +219,11 @@ The first atom in a molecule is considered the “signing atom” and is critica
 
 *V*-isotope molecules are always signed with wallet-bearing token in the first *V*-isotope atom:
 
-![alt text][vatom]
+![Knish.IO V-Isotope Molecule Diagram][vatom]
 
 *M*-isotope molecule are always signed with USER-token wallet designated in prior *I*-isotope:
 
-![alt text][matom]
+![Knish.IO M-Isotope Molecule Diagram][matom]
 
 *I*-isotope atoms and the third *V*-isotope atoms serve an identical purpose: to establish the next wallet in the user’s custody. However, in the case of *V*-isotope atoms, token remainder balance is also shifted to the new wallet.
 
@@ -189,19 +233,13 @@ The first atom in a molecule is considered the “signing atom” and is critica
 
 Molecules are always associated with the Cell serving the specific decentralized application or dApp that originated the transaction, sharding the overall collection of data stored on the Knish.IO ledger around application-specific domains to ensure optimally scalable performance without sacrificing decentralization. Molecules and the process of executing their atomic payloads behave according to the parameters of their Cell, established by the custodial entity operating the dApp.
 
-![alt text][cell]
+![Knish.IO Cell Diagram][cell]
 
 Parameters that can be controlled at the Cell level include (but are not limited to):
 
 - *Hashing Algorithm:* SHAKE256 (SHA3-based variable-length XOR function) [3]
 - *Encryption Algorithm:* Elliptic Curve ED25509 [4]
 - *Wallet Alphabet:* BASE64
-
----
-
-# Model: Meta
-
-The Meta model is a virtual object used for maintaining and retrieving a store of metadata across various other models, as conveyed by M molecules, and is designed to be interacted with via API exclusively.
 
 ---
 
@@ -215,7 +253,7 @@ While a WOTS+ private key can be used to sign any molecule, repeat usages of a k
 
 The process of wallet regeneration produces a new wallet, and eventually there may be dozens, if not hundreds of wallets kept by any single user. This is why wallet bundles are used as an abstraction layer and route tokens to the latest, pristine wallet address.
 
-![alt text][bundle]
+![Knish.IO Bundle Diagram][bundle]
 
 When a wallet is regenerated, it can no longer sign molecules using the same WOTS+ key. This is an effective countermeasure against a possible compromised wallet (which is effectively unusable if it has regenerated), as well as against a possible attempt to perform a double-spend transaction (due to the asynchronous nature of the consensus algorithm combined with additional bonding requirements for multiple low-confidence molecules drawing from the same wallet bundle).
 
@@ -247,7 +285,7 @@ Given the biometric secret *S*, an integer `position`, and a string `token` argu
 9. Absorb *K*<sub>int</sub>
 10. Squeeze a 4096 byte (2048 character) hex value from the sponge and designate it as the "private key" *K*<sub>k</sub> 
 
-![alt text][walletkey]
+![Wallet Key Generation][walletkey]
 
 ---
 
@@ -269,7 +307,44 @@ Once we have obtained the wallet private key *K*<sub>k</sub>, we can use it to d
 6. Absorb *D*<sub>k</sub> into the sponge
 7. Squeeze a 128 byte (64 character) string out of the sponge that will represent the wallet address for this private key.
 
-![alt text][address]
+![Wallet Address Generation][address]
+
+---
+
+# Model: Meta Asset
+
+Knish.IO provides for dynamic, virtual data structures called Meta Assets. Specific Meta Assets are identified via a combination of `metaType` and `metaId` properties, and can have an arbitrary amount of structured metas storing key/value pairs of properties, as contributed by *M*-molecules.
+
+Meta Assets can be used to store information about other core Knish.IO models as well, like Wallet Bundles, Wallets, Tokens, and more. Leveraging Meta Assets in a dApp allow for using the Knish.IO ledger in a very similar fashion to Google Firebase - as a true application development platform.
+
+Below is an example Javascript SDK call to create a new `LicensePlate` record with identifier `ABC123`:
+
+```javascript
+const response = await client.createMeta( {
+      metaType: 'LicensePlate',
+      metaId: 'ABC123',
+      meta: {
+        make: 'Toyota',
+        model: 'Prius',
+        year: '2013'
+      }
+    } );
+```
+
+and here is how the `LicensePlate` schema is queried:
+
+```javascript
+const response = await client.queryMeta( {
+      metaType: 'LicensePlate',
+      filter: [
+        {
+          key: 'year',
+          value: '2010',
+          comparison: '>'
+        }
+      ]
+    } );
+```
 
 ---
 
@@ -301,7 +376,7 @@ The actual method of biometric collection depends on use case implementation, bu
 This biometric secret, *S*, may then be used as a seed to generate an infinite number of one-time-use private keys for the new quantum-resistant Knish.IO wallet. The public key becomes the wallet address.
 Each private key may only be used securely once, and neither  nor the wallet private key needs to necessarily be stored in order to function correctly.
 
-![alt text][biometrics]
+![Knish.IO Biometric UX][biometrics]
 
 ## Step 2: Client generates atomic structure
 
@@ -314,7 +389,7 @@ In this step we must generate all the necessary atoms for molecule *M* to fulfil
 
 You will end up with a series of atoms like this (*V* isotopes shown in example), capped off with an *I* isotope to establish chain of custody:
 
-![alt text][atoms]
+![Knish.IO V and I Atom Arrangement][atoms]
 
 ## Step 3: Client creates a molecular hash of the atoms
 
@@ -377,9 +452,9 @@ mutation MoleculeMutation($molecule: MoleculeInput!) {
   }
 }
 ```
-There is no recommended GraphQL client. This choice is up to the individual projects and integrators.
+There is no recommended GraphQL client. This choice is up to the individual projects and integrators. Most Knish.IO SDKs supply an out-of-the-box GraphQL client for you to use.
 
-It may be advantageous to verify the `ots_fragment` and `molecular_hash` prior to sending a mutation, using the same verification algorithms as the node, below.
+Knish.IO SDKs perform a number of validations on molecules prior to broadcast, however, if you are foregoing an SDK, and building an implementation from scratch, it may be advantageous to verify the `ots_fragment` and `molecular_hash` prior to sending a mutation, using the same verification algorithms as the node, below.
 
 ## Step 6: Node verifies the molecule's hash and signature
 
@@ -415,11 +490,11 @@ Once a molecule's payload and signature have been verified, the node must choose
 
 The process of bonding molecules in Knish.IO behaves differently depending on the primary atomic isotope involved in the proposed molecule:
 
-- *V* and *F* molecules may ONLY bond with molecules associated with the same token
+- *V* and *B* molecules may ONLY bond with molecules associated with the same token
 - *C* molecules may ONLY bond with other *C* molecules, or a root molecule
-- *M* molecules may bond with any type of molecule
+- *M* molecules may ONLY bond with *M* or *C* molecules describing the same `metaType` and `metaId`, or a root molecule
 - *P* molecules may ONLY bond with the *P* molecule representing the peer to which we are bonding, or a root molecule
-- *R* molecules may ONLY bond with other *R* molecules, or a root molecule
+- *R* molecules may ONLY bond with *R*, *M*, or *C* molecules describing the same `metaType` and `metaId`, or a root molecule
 - The first molecule on the ledger does not need to bond, as there is nothing to bond with, and is considered the global origin
 
 A proposed molecule *M* must bond with a variable number of tip molecules in order to be accepted by Knish.IO, depending on several factors described herein.
@@ -439,7 +514,7 @@ A **Markov Chain Random Walk** (Weighted Monte Carlo Random Walk) procedure must
     - *M*<sub>root</sub> has a `confidence` of 95% or higher
     - If no acceptable *M*<sub>root</sub> is found above, choose *M*<sub>origin</sub> as *M*<sub>root</sub>
 2. Choose a molecule *M*<sub>c</sub> out of *M*<sub>root</sub>'s cascade to "walk" to.
-    - If a total of *p* > 1 molecules are present in the cascade, then the probability of selecting a *M*<sub>c</sub>, with a `confidence` of *I*<sub>c</sub>, is equal to: ![alt text][mcrw]
+    - If a total of *p* > 1 molecules are present in the cascade, then the probability of selecting a *M*<sub>c</sub>, with a `confidence` of *I*<sub>c</sub>, is equal to: ![Markov Chain Random Walk Probability][mcrw]
     - This produces a range of probabilities depending on the relative `confidence` of *M*<sub>c</sub> compared with other molecules in the cascade, and ensures that even less-prominent molecules have a chance of being selected for analysis.
     - If *M*<sub>c</sub> has the same wallet bundle as *M* or any primary bond candidates thus far, it is ignored (can't walk over your own molecules).
     - If *p* == 1, walk to the sole available *M*<sub>c</sub>.
@@ -447,7 +522,7 @@ A **Markov Chain Random Walk** (Weighted Monte Carlo Random Walk) procedure must
 4. Perform a throttle check on the selected *M*<sub>c</sub> to ensure that the same wallet bundle isn't generating too many new molecules:
     - Probability of spontaneous rejection can be represented by comparing *N*<sub>c</sub> = countOverTime ( *M*<sub>c</sub>, 5 seconds ) to an upper limit of 100 molecules per 5 seconds:
     
-    ![alt text][rejection]
+    ![Rejection Probability][rejection]
 
     - Should rejection occur at this stage, the random walk process must be restarted to choose a different tip.
     - Function countOverTime ( *M*, *t* ) returns the number of molecules submitted by wallet bundle of molecule *M* within the specified number of seconds *t* of *M*.
@@ -457,7 +532,7 @@ At this point, the set of primary bond candidates will have either {*M*<sub>1</s
 
 We must now check if secondary bond candidates are required to help protect the cell from possible double-spend attacks. The number of secondary bond candidates required is defined by the pseudocode below:
 
-![alt text][secondary]
+![Secondary Bond Equation][secondary]
 
 The *GetTips* function above returns a collection of all tip molecules originating from the same wallet bundle as the supplied set of molecules, exclusive of the arguments themselves.
 
@@ -522,7 +597,7 @@ Because issuance of a *P* molecule is required to initiate peering, it becomes e
 
 Each node may have up to 100 peers, though starting at 50, each broadcast by the node will cause the slowest / least reliable peers to be dropped without replacement.
 
-![alt text][peering]
+![Knish.IO Peering Algorithm][peering]
 
 ## Discovering Peers
 
@@ -575,9 +650,9 @@ When a peer broadcasts a new molecule, Knish.IO ensures that the peer is not att
 
 The purpose of this procedure is to ensure that peer *P* sending molecule *M*<sub>rec</sub> isn’t spamming us by looking at the number of recently received molecules from *P*, as provided by the `received_molecules` collection.
 
-This set of molecules shall be represented as ![alt text][mrec].
+This set of molecules shall be represented as ![Set of Received Molecules][mrec].
 
-Probability of spontaneous rejection of the broadcast shall be represented by comparing *N*<sub>peer</sub> = countOverTime ( *M*<sub>rec</sub>, 5 seconds ) to an upper limit of 30 molecules per 5 seconds: ![alt text][mrejection]
+Probability of spontaneous rejection of the broadcast shall be represented by comparing *N*<sub>peer</sub> = countOverTime ( *M*<sub>rec</sub>, 5 seconds ) to an upper limit of 30 molecules per 5 seconds: ![Probability of Spontaneous Rejection][mrejection]
 
 Should rejection occur, *M*<sub>new</sub> will be added to the `rejected_molecules` collection.
 
@@ -587,7 +662,7 @@ This step is designed to prevent repeated attempts at submitting spam molecules 
 
 We will consider the number of recently rejected transactions from *P*, as provided by the `rejected_molecules` collection.
 
-This set of molecules shall be represented as ![alt text][mrej].
+This set of molecules shall be represented as ![Set of Rejected Molecules][mrej].
 
 If *N*<sub>peer</sub> = countOverTime ( *M*<sub>rej</sub>, 60 seconds ) > 5, the `status` of *P* shall be set to "pending" and no further molecules from *P* will be processed until the status is lifted automatically in 3600 seconds.
 
@@ -611,7 +686,7 @@ Lite nodes store wallet balances, but only for the purpose of display. Peers are
 
 When considering conflicting responses from multiple peers, the frequency of occurrence of each variation determines the probability of choosing that variation.
 
-![alt text][lite]
+![Lite Mode Node Diagram][lite]
 
 ---
 
@@ -626,9 +701,9 @@ Only molecular and atomic data is destroyed in the process. All other models rem
 The process works as follows
 
 1. Start at *M*<sub>origin</sub>.
-2. Select *M*<sub>origin</sub>’s cascade as ![alt text][osmosis]
+2. Select *M*<sub>origin</sub>’s cascade as ![Set of Origin Cascades for Osmosis][osmosis]
 3. Iterate over each *M*<sub>c</sub> in *C*<sub>origin</sub>
-    - For *V*, *F* molecules: create/update a Wallet snapshot reflecting the balance after this molecule’s bonding
+    - For *V*, *B* molecules: create/update a Wallet snapshot reflecting the balance after this molecule’s bonding
     - For *M* molecules: create/update a Meta snapshot reflecting the object metadata after this molecule’s bonding
     - For all other types: no snapshotting needed
 4. Select the cascade of *M*<sub>c</sub> as *C*<sub>Mc</sub>
@@ -639,19 +714,55 @@ The process works as follows
 
 At the bare minimum, each node is expected to retain the past 24 hours worth of molecular activity.
 
-Individual deployments (such as WishKnish Storefronts) may offer nodes additional options for purchasing / expanding their storage capacity via cloud disk integrations. 
+Individual deployments (such as KnishOS) may offer nodes additional options for purchasing / expanding their storage capacity via cloud disk integrations. 
 
 ---
 
-# Concept: Smart Contracts
+# Concept: Rules, Policies, and Allowances
 
-A Smart Contract is a set of logical rules that is distributed throughout a ledger and performs defined actions based on either internal states or by retrieving data from external “oracles”. Unlike a computer program, which runs on a single PC or server, Smart Contracts operate in a distributed environment.
+Knish.IO provides for several mechanisms for automating ledger behavior without human intervention:
 
-Knish.IO provides for a generalized Smart Contract solution leveraging a subset of the PHP programming language, while leaving more purpose-driven Smart Contract implementation to Layer 2 use cases in a modular fashion, via the cell’s `virtual_machine` argument.
+## Rules
 
-WishKnish Storefronts also provides a more specialized implementation of Smart Contracts to fulfill the needs of Achievement-based gamification and incentivization.
+Rules are a set of logical constraints that is distributed throughout a ledger and performs defined actions (callbacks) based on either internal states or by retrieving data from external “oracles”. Unlike a computer program, which runs on a single PC or server, Rules operate in a distributed environment.
 
-![alt text][achievement]
+Rules are described using a structured instruction set format injected via the `metas` field of an *R* atom, and applied to a specific `metaType` and `metaId` combination. Most Knish.IO models may be automated in such fashion.
+
+Below is an example of a JavaScript SDK method to create an *R*-isotope molecule that will trigger automated creation of a message when the temperature for a shipping container reaches an unsafe threshold:
+
+```javascript
+const metaType = 'ShippingContainer';
+const metaId = 'foo123';
+const rule = {
+  condition: [ {
+    key: 'temperature',
+    value: 40,
+    comparison: '>='
+  } ],
+  callback: [ {
+    action: 'meta',
+    metaType: 'Message',
+    metaId: 'bar456',
+    meta: {
+      to: 'yuriy',
+      subject: '%MetaId% has reached an unsafe temperature!',
+      body: 'Please check %MetaType% %MetaId% - it\'s temperature' +
+            'has just reached an unsafe level ( >= 40 degrees ).'
+    }
+  } ]
+};
+client.crateRule( metaType, metaId, [ rule ] );
+```
+
+Molecules that result from server-side Rule execution are not broadcasted to other nodes - each of them will execute their own local version of the same, based on agreed-upon distributed Rule metadata.
+
+KnishOS also provides a more specialized UX for managing Rules to fulfill the needs of Achievement-based gamification and incentivization.
+
+![Edit Achievement Screenshot][achievement]
+
+## Policies
+
+Policies are a specialized set of properties contributed via *R* isotopes that govern data access and privileges 
 
 ---
 
@@ -765,31 +876,34 @@ This section describes the proposed relational database structure that nodes may
 7. Bitcoin Energy Consumption Index https://digiconomist.net/bitcoin-energy-consumption
 8. Post-Quantum Cryptography https://en.wikipedia.org/wiki/Post-quantum_cryptography 
 9. Recommendation for Stateful Hash-Based Signature Schemes https://csrc.nist.gov/publications/detail/sp/800-208/final
+10. Quantifying Decentralization https://news.earn.com/quantifying-decentralization-e39db233c28e
 
 &copy; 2019, WishKnish Corp. All rights reserved.
 
-[dag]: https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Topological_Ordering.svg/500px-Topological_Ordering.svg.png "Directed Acyclic Graph"
-[xmss]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/xmss_tree.png "XMSS Tree"
-[create]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/cbf50dba75362d016fbbf754ddf148246de1110b/create-token.png "Create Token Screenshot"
-[organism]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/organism.png "Knish.IO Organism Diagram"
-[molecule]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/molecule.png "Knish.IO Molecule Diagram"
-[cascade]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/cascade.png "Knish.IO Cascade Diagram"
-[atom]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/atom.png "Knish.IO Atom Diagram"
-[atoms]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/atoms.png "Knish.IO V and I Atom Arrangement"
-[cell]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/cell.png "Knish.IO Cell Diagram"
-[bundle]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/bundle.png "Knish.IO Bundle Diagram"
-[biometrics]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/biometrics.jpg "Knish.IO Biometric UX"
-[vatom]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/vatom.png "Knish.IO V-Isotope Molecule Diagram"
-[matom]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/matom.png "Knish.IO M-Isotope Molecule Diagram"
-[walletkey]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/walletkey.png "Wallet Key Generation"
-[address]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/address.png "Wallet Address Generation"
-[mcrw]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/equation-mcrw.png "Markov Chain Random Walk Probability"
-[rejection]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/equation-mcrw.png "Markov Chain Random Walk Probability"
-[secondary]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/equation-secondary.png "Secondary Bond Equation"
-[peering]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/peering.png "Knish.IO Peering Algorithm"
-[mrec]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/equation-mrec.png "Set of Received Molecules"
-[mrejection]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/equation-peer-rejection.png "Probability of Spontaneous Rejection"
-[mrej]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/equation-mrej.png "Set of Rejected Molecules"
-[lite]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/litenode.png "Lite Mode Node Diagram"
-[osmosis]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/equation-osmosis.png "Set of Origin Cascades for Osmosis"
-[achievement]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/edit-achievement.jpg "Edit Achievement Screenshot"
+[dag]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/dag.png?raw=true "Directed Acyclic Graph"
+[xmss]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/xmss_tree.png?raw=true "XMSS Tree"
+[create]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/create-token.png?raw=true "Create Token Screenshot"
+[organism]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/organism.png?raw=true "Knish.IO Organism Diagram"
+[molecule]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/molecule.png?raw=true "Knish.IO Molecule Diagram"
+[cascade]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/cascade.png?raw=true "Knish.IO Cascade Diagram"
+[atoms]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/atoms.png?raw=true "Knish.IO V and I Atom Arrangement"
+[cell]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/cell.png?raw=true "Knish.IO Cell Diagram"
+[bundle]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/bundle.png?raw=true "Knish.IO Bundle Diagram"
+[biometrics]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/biometrics.jpg?raw=true "Knish.IO Biometric UX"
+[vatom]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/vatom.png?raw=true "Knish.IO V-Isotope Molecule Diagram"
+[matom]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/matom.png?raw=true "Knish.IO M-Isotope Molecule Diagram"
+[walletkey]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/walletkey.png?raw=true "Wallet Key Generation"
+[address]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/address.png?raw=true "Wallet Address Generation"
+[mcrw]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/equation-mcrw.png?raw=true "Markov Chain Random Walk Probability"
+[rejection]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/equation-mcrw.png?raw=true "Rejection Probability"
+[secondary]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/equation-secondary.png?raw=true "Secondary Bond Equation"
+[peering]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/peering.png?raw=true "Knish.IO Peering Algorithm"
+[mrec]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/equation-mrec.png?raw=true "Set of Received Molecules"
+[mrejection]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/equation-peer-rejection.png?raw=true "Probability of Spontaneous Rejection"
+[mrej]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/equation-mrej.png?raw=true "Set of Rejected Molecules"
+[lite]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/litenode.png?raw=true "Lite Mode Node Diagram"
+[osmosis]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/equation-osmosis.png?raw=true "Set of Origin Cascades for Osmosis"
+[achievement]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/edit-achievement.jpg?raw=true "Edit Achievement Screenshot"
+[architecture]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/architecture.png?raw=true "Knish.IO Architecture Diagram"
+[nakamoto]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/nakamoto.png?raw=true "Nakamoto Coefficient Algorithm"
+[infrastructure]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/infrastructure.png?raw=true "Knish.IO Peering Infrastructure"
