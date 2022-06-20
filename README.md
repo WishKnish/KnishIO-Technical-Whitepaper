@@ -251,7 +251,15 @@ Parameters that can be controlled at the Cell level include (but are not limited
 
 ---
 
-# Model: Wallet, Buffer, Wallet Bundle
+# Model: Wallet Bundle, Wallet, Shadow Wallet, Buffer
+
+## Wallet Bundle
+
+A Wallet Bundle represents a Knish.IO user identity. It is the collection of all the user's wallets, shadow wallets, buffers, molecules, reputation, and metadata. True to its name, it is very much a "bundle of wallets".
+
+When sending tokens to a user, their wallet bundle may be used in lieu of a recipient wallet address.
+
+Wallet bundles are identified by a unique 64-character identifier called a `bundleHash`, which is used interchangeably with a wallet address for sending tokens to a third party.
 
 ## Wallet
 
@@ -263,7 +271,13 @@ When a wallet is regenerated, it can no longer sign molecules using the same WOT
 
 ![Knish.IO Bundle Diagram][bundle]
 
+## Shadow Wallet
+
 The process of wallet regeneration produces a new wallet, and eventually there may be dozens, if not hundreds of wallets kept by any single user. This is why wallet bundles are used as an abstraction layer and route tokens to the latest, pristine wallet address.
+
+However, if no such pristine wallet is available to route tokens into, a shadow wallet is created instead. Shadow wallets are temporary wallets with no keys (therefore no `position` or `wallet_address` fields defined), only a wallet bundle assignment.
+
+Shadow wallets can be used for deposit routing, however no transactions may be signed by them, and therefore any received tokens may not be used until the shadow wallet is "claimed". The process of claiming a shadow wallet is equivalent to retroactively creating a wallet for the given token, which will automatically receive any collected balance from the shadow wallet.
 
 ## Buffer
 
@@ -275,12 +289,6 @@ On the other hand, buffered assets can take advantage of rich server-side automa
 
 ![Knish.IO Decentralized Exchange Buffer Trade Matching][matching]
 
-## Wallet Bundle
-
-A Wallet Bundle represents a Knish.IO user identity. It is the collection of all the user's wallets, buffers, molecules, reputation, and metadata. True to its name, it is very much a "bundle of wallets".
-
-When sending tokens to a user, their wallet bundle may be used in lieu of a recipient wallet address.
-
 ---
 
 # Model: Token
@@ -289,11 +297,16 @@ Tokens are virtual representations of a particular asset or utility, and may rep
 
 Tokens are stored in users’ wallets. Each wallet address can accommodate only a single type of token, so a user holding multiple tokens would have a wallet address for each of them, each with its own position for signing molecules.
 
-There are three fungibility modes:
+There are presently three fungibility modes supported:
 
 1. **Fungible** tokens rely on the `balance` field of a wallet to track how much balance remains. This is the "default" behavior.
-2. **Non-fungible tokens** rely on `token_units` to describe unique nonfungible units of the token.
+2. **Non-fungible tokens** rely on `token_units` to describe unique nonfungible units of the token using structured metadata.
 3. **Partially-fungible ("stackable") tokens** use a combination of `balance`, `batch_id`, and metadata attached to the wallet and/or token to fulfill their use case.
+
+There are also two replenishment modes supported:
+
+1. **Replenishable** tokens can be re-issued as needed after creation, and there is no limit on the maximum supply amount.
+2. **Non-Replenishable** tokens cannot be re-issued, so the initial supply minted will represent the final maximum supply amount.
 
 ---
 
@@ -371,6 +384,15 @@ const response = await client.queryMeta( {
       ]
     } );
 ```
+
+## Custom Schemas
+
+Knish.IO generally supports arbitrarily-structured metadata (no limitations on which metadata `key` values are used), but sometimes it may be advantageous to define a fixed schema to which data must conform (a specific list of `key` values and their respective structure).
+
+There are 2 ways of accomplishing this:
+
+1. **Define your own schema:** Custom schema structure may be provided during meta asset creation when setting `metaType` to "MetaType" and `metaId` to the name of the new meta asset class. The `meta` object will supply the schema structure. Subsequent creation of meta assets of the new meta asset class will have to adhere to the defined schema.
+2. **Reference an external schema:** Knish.IO can be extended to support external schemas from [Schema.org](https://schema.org/), [GS1](https://gs1.org), [NIEM](https://www.niem.gov/), and others.
 
 ---
 
