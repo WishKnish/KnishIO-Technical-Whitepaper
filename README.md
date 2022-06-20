@@ -15,15 +15,15 @@ Distributed-ledger-based solutions for large-scale application deployment, trans
 4. user-friendliness and transparency, and
 5. decentralization and resilience
 
-Current leading solutions for building decentralized applications (dApps) leverage one of several consensus algorithms, including the computationally expensive Proof-of-Work (PoW), the much less transparent and potentially insecure Delegated Proof of Stake (DPoS), and the oligarchic Proof of Stake (PoS) where wealth equals influence. Each of these popular consensus algorithms sacrifices one or more Critical Factor in order to function. The purpose of this whitepaper is to demonstrate the Knish.IO distributed ledger technology, and its solution for effectively maintaining all four Critical Factors simultaneously while delivering state of the art deployments for dApps.
+Current leading solutions for building decentralized applications (dApps) leverage one of several consensus algorithms, including the computationally expensive Proof-of-Work (PoW), the much less transparent and potentially insecure Delegated Proof of Stake (DPoS), and the oligarchic Proof of Stake (PoS) where wealth equals influence. Each of these popular consensus algorithms sacrifices one or more Critical Factor in order to function. The purpose of this whitepaper is to demonstrate the Knish.IO distributed ledger technology, and its solution for effectively maintaining all five Critical Factors simultaneously while delivering state of the art deployments for dApps.
 
 ---
 
 ## Introduction
 
-Since the Satoshi Nakamoto whitepaper, blockchain architecture (as one possible application of DLT - distributed ledger technology) has found initial trial applications in many industries, including banking, e-commerce, transportation, supply chain management, communication, and more. New applications are being imagined daily, and there seems to be no limit to the transformative reach of decentralization. However, before any single DLT solution can truly take hold, and position itself as a viable option for the long term, it must overcome the challenge of delivering four Critical Factors without which their influence will be limited to die-hard fans, early adopters, and blockchain enthusiasts.
+Since the Satoshi Nakamoto whitepaper, blockchain architecture (as one possible application of DLT - distributed ledger technology) has found initial trial applications in many industries, including banking, e-commerce, transportation, supply chain management, communication, and more. New applications are being imagined daily, and there seems to be no limit to the transformative reach of decentralization. However, before any single DLT solution can truly take hold, and position itself as a viable option for the long term, it must overcome the challenge of delivering five Critical Factors without which their influence will be limited to die-hard fans, early adopters, and blockchain enthusiasts.
 
-WishKnish proposes a novel DLT solution that attempts to address all four Critical Factors:
+WishKnish proposes a novel DLT solution that attempts to address all five Critical Factors:
 
 ---
 
@@ -52,15 +52,15 @@ The term “future-resistance” implies the hardiness of a project’s security
 
 Quantum computing is a concept that has the potential to truly throw a wrench into the works of most encryption mechanisms in use today [8], and therefore Knish.IO takes special precaution by its choice of quantum-resistant XMSS [6] (eXtended Merkle Signature Scheme) mechanism as a baseline algorithm for securing its molecular structure in a post-quantum world. XMSS has been recommended by NIST as a post-quantum alternative for stateful hash-based signatures [9].
 
-A key feature of XMSS is the reliance on one-time signatures via Winternitz One-Time Signatures Plus (WOTS+), which is leveraged by Knish.IO to ensure that all keys used to sign transactions are regenerated after every use, and that no key is ever used twice.
+A key feature of XMSS is the reliance on one-time signatures via Winternitz One-Time Signatures Plus (WOTS+), which is leveraged by Knish.IO to ensure that all keys used to sign transactions are regenerated after every use, and that no key is ever used twice. This mechanism helps protect wallet holders from transactions spoofed by adversaries, and process only those signed by legitimate wallet holders.
 
-This mechanism helps protect wallet holders from transactions spoofed by adversaries, and process only those signed by legitimate wallet holders.
-Furthermore, because encryption keys are similarly recycled, decrypting a thread of metadata or messages becomes increasingly difficult for a bad actor.
-
-Below is a diagram of the XMSS tree construction [9]:
-
+Below is a diagram of the XMSS tree construction:
 
 ![XMSS Tree][xmss]
+
+Furthermore, because encryption keys are similarly recycled, decrypting a thread of metadata or messages becomes increasingly difficult for a bad actor.
+
+Additionally, many of the algorithms in use within the ledger are designed to be changed and upgraded over time as the need arises. After all, every cryptographic algorithm has a limited shelf life, so it is important to be adaptable to a changing cybersecurity landscape. The set of algorithms used (encryption, wallet character set, hashing algorithm, etc.) can be determined when negotiating an authorization key with a Knish.IO server.
 
 ---
 
@@ -72,13 +72,15 @@ Legacy DLTs such as Bitcoin require an inordinate amount of energy in order to f
 
 Let’s get a sense of just how much environmental impact we have to contend with [7]:
 
-| Description  | Value       |
-| ------------- |-------------|
-| Bitcoin's current estimated annual electricity consumption* | 151.84 TWh  |
-| Country closest to Bitcoin in terms of electricity consumption | Malaysia    |
-| Electricity consumed per transaction | 1647.12 KWh |
-| Number of U.S. households that could be powered by Bitcoin | 5,204,773,422   |
-| Number of U.S. households powered for 1 day by the electricity consumed for a single transaction | 56.46       |
+| Description                                                                              | Value    |
+|------------------------------------------------------------------------------------------|----------|
+| Bitcoin's current estimated annual electricity consumption*                              | 152 TWh  |
+| Country closest to Bitcoin in terms of electricity consumption                           | Malaysia |
+| Electricity consumed per transaction                                                     | 1647 KWh |
+| Number of days an average U.S. household can be powered by a single Bitcoin transaction  | 56       |
+| * Number of years ALL of U.S. households can be powered by a year's worth of Bitcoin use | 6.5      |
+
+<small>(* computed by dividing 152 TWh of total use by 1647 KWh per transaction to get an average number of annualized transactions, multiplying by 56 days of use for a single home, then dividing by 122,354,219 - the number of households in the U.S. [11] - and finally dividing by 365)</small>
 
 The reason for this massive energy drain is that the process of confirming new blocks being added to the ledger is an ever-escalating arms race of computing power under the Proof of Work consensus algorithm.
 
@@ -91,6 +93,8 @@ Instead of forcing nodes to compete for who gets to validate a block of transact
 > “The main advantage of blockchain technology is supposed to be that it's more secure, but new technologies are generally hard for people to trust, and this paradox can't really be avoided.” - Vitalik Buterin
 
 At the end of the day, if an amazing new technology is too abstract for the average consumer to use, it will not be adopted by the average consumer. That’s not to say it needs to be understood from top to bottom - after all, most automobile owners do not have a very deep understanding of the inner workings of a combustion engine or transmission, and yet can drive their cars just fine.
+
+VentureBeat has postulated in mid-2021 that 80% of tech could be built outside IT by 2024, thanks to low-code tools [12] - a trend that is still largely being ignored by the blockchain community.
 
 It is therefore our mission to bring mass adoption to the public by wrapping complex concepts into a user-friendly, easily-digestible experience - much like Microsoft Windows’ innovative Program Manager GUI did for desktop computing in the era of command-line MS DOS usage.
 
@@ -106,7 +110,7 @@ We see the following as critical sources of friction slowing or stopping consume
 
 ![Create Token Screenshot][create]
 
-5. **Hardware requirements.** Legacy blockchain platforms - especially those geared towards inefficient consensus mechanisms - have spawned a shift in hardware optimization to take full advantage of mining and obtain more hashing power. Expensive, power-hungry ASICs, mining-optimized GPUs, or in some cases, even more exotic requirements - such as tryte-based logic chips - to take full advantage of the software. Knish.IO is designed for inexpensive, easy to deploy infrastructure. For this reason, Knish.IO is one of the few distributed ledgers equally capable of operating on both a high-powered supercomputing cloud and a $35 Raspberry Pi single-board computer.
+5. **Hardware requirements.** Legacy blockchain platforms - especially those geared towards inefficient consensus mechanisms - have spawned a shift in hardware optimization to take full advantage of mining and obtain more hashing power. Expensive, power-hungry ASICs, mining-optimized GPUs, or in some cases, even more exotic requirements - such as tryte-based logic chips - to take full advantage of the software. This limitation also impacts the ability to utilize cloud computing environments to deploy distributed ledger infrastructure, as most providers do not allow for mining due to their sustainability efforts. Knish.IO is designed for inexpensive, easy to deploy, environmentally sustainable infrastructure that does not rely on mining. For this reason, Knish.IO is one of the few distributed ledgers equally capable of operating on both a high-powered supercomputing cloud and a $35 Raspberry Pi single-board computer.
 
 ---
 
@@ -249,19 +253,33 @@ Parameters that can be controlled at the Cell level include (but are not limited
 
 # Model: Wallet, Buffer, Wallet Bundle
 
-Wallets are virtual buckets for storing assets (tokens) and information (meta), and may be employed in the more traditional sense (users sending and receiving cryptocurrency payments or NFTs), or in more exotic use-case-specific ways (for example, tracking shipping containers arriving at port).
+## Wallet
 
-Buffers are specialized wallets used for coordinating automation allowances: fungible, non-fungible, or partially-fungible assets may be buffered for automated peer-to-peer exchange and staking use-cases. Unlike wallets, buffers cannot transfer tokens to third-parties, other than via server-side automation.
+Wallets are virtual buckets for storing assets (tokens) and WOTS+ keys for signing molecules or encryption keys for encrypting data, and may be employed in the more traditional sense (users sending and receiving cryptocurrency payments or NFTs), or in more exotic use-case-specific ways (for example, facilitating peer-to-peer hyper-secure communications via constantly-changing encryption keys).
 
-While a WOTS+ private key can be used to sign any molecule, repeat usages of a key will be rejected by the ledger because each use exposes exactly 50% of the key, allowing an attacker to compromise signed assets should key re-use be allowed. Because of this single-use nature of the private keys, it becomes necessary to regenerate a wallet with a new private key.
-
-The process of wallet regeneration produces a new wallet, and eventually there may be dozens, if not hundreds of wallets kept by any single user. This is why wallet bundles are used as an abstraction layer and route tokens to the latest, pristine wallet address.
-
-![Knish.IO Bundle Diagram][bundle]
+While a WOTS+ private key can be used to sign any molecule, repeat usages of a key will be rejected by the ledger because each use exposes exactly 50% of the key, allowing an attacker to compromise signed assets should key re-use be allowed. Because of this single-use nature of the private keys, it becomes necessary to regenerate a wallet with a new private key after every transaction.
 
 When a wallet is regenerated, it can no longer sign molecules using the same WOTS+ key. This is an effective countermeasure against a possible compromised wallet (which is effectively unusable if it has regenerated), as well as against a possible attempt to perform a double-spend transaction (due to the asynchronous nature of the consensus algorithm combined with additional bonding requirements for multiple low-confidence molecules drawing from the same wallet bundle).
 
-Each wallet address serves as the owner's public key, and is derived from their biometric secret, and the position of the next valid atom for the token (if any) being transacted with.
+![Knish.IO Bundle Diagram][bundle]
+
+The process of wallet regeneration produces a new wallet, and eventually there may be dozens, if not hundreds of wallets kept by any single user. This is why wallet bundles are used as an abstraction layer and route tokens to the latest, pristine wallet address.
+
+## Buffer
+
+Buffers are specialized wallets used for coordinating automation allowances: fungible, non-fungible, or partially-fungible assets may be buffered for automated peer-to-peer exchange and staking use-cases, or shifted out of previously allocated buffers back into their "normal" wallets.
+
+Unlike wallets, buffers cannot transfer tokens to third-parties, other than via server-side automation, so while they can be used to sign transactions, they are limited to those that move tokens out of a buffer and into the same user's wallet.
+
+On the other hand, buffered assets can take advantage of rich server-side automation capabilities: for example, Knish.IO comes with a robust trade matching engine connecting buffered trades and fulfilling token swaps.
+
+![Knish.IO Decentralized Exchange Buffer Trade Matching][matching]
+
+## Wallet Bundle
+
+A Wallet Bundle represents a Knish.IO user identity. It is the collection of all the user's wallets, buffers, molecules, reputation, and metadata. True to its name, it is very much a "bundle of wallets".
+
+When sending tokens to a user, their wallet bundle may be used in lieu of a recipient wallet address.
 
 ---
 
@@ -271,7 +289,11 @@ Tokens are virtual representations of a particular asset or utility, and may rep
 
 Tokens are stored in users’ wallets. Each wallet address can accommodate only a single type of token, so a user holding multiple tokens would have a wallet address for each of them, each with its own position for signing molecules.
 
-Fungible tokens rely on the `balance` field of a wallet to track how much balance remains, while non-fungible and partially-fungible tokens use a combination of `balance` and meta attached to the wallet and/or token to fulfill their use case.
+There are three fungibility modes:
+
+1. **Fungible** tokens rely on the `balance` field of a wallet to track how much balance remains. This is the "default" behavior.
+2. **Non-fungible tokens** rely on `token_units` to describe unique nonfungible units of the token.
+3. **Partially-fungible ("stackable") tokens** use a combination of `balance`, `batch_id`, and metadata attached to the wallet and/or token to fulfill their use case.
 
 ---
 
@@ -881,6 +903,8 @@ This section describes the proposed relational database structure that nodes may
 8. Post-Quantum Cryptography https://en.wikipedia.org/wiki/Post-quantum_cryptography 
 9. Recommendation for Stateful Hash-Based Signature Schemes https://csrc.nist.gov/publications/detail/sp/800-208/final
 10. Quantifying Decentralization https://news.earn.com/quantifying-decentralization-e39db233c28e
+11. U.S. Census Bureau Quick Facts https://www.census.gov/quickfacts/fact/table/US/HSD410220
+12. 80% of tech could be built outside IT by 2024, thanks to low-code tools https://venturebeat.com/2021/06/14/80-of-tech-could-be-built-outside-it-by-2024-thanks-to-low-code-tools/
 
 &copy; 2019, WishKnish Corp. All rights reserved.
 
@@ -911,3 +935,4 @@ This section describes the proposed relational database structure that nodes may
 [architecture]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/architecture.png?raw=true "Knish.IO Architecture Diagram"
 [nakamoto]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/nakamoto.png?raw=true "Nakamoto Coefficient Algorithm"
 [infrastructure]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/infrastructure.png?raw=true "Knish.IO Peering Infrastructure"
+[matching]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/matching.png?raw=true "Knish.IO Decentralized Exchange Buffer Trade Matching"
