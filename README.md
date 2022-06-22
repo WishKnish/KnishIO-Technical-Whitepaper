@@ -263,6 +263,8 @@ Wallet bundles are identified by a unique 64-character identifier called a `bund
 
 Every virtual object created on the ledger, including tokens, meta assets, and even molecules and their atoms, is tied to the wallet bundle that created it, ensuring that reputation and continuity of identity is maintained throughout the objects' lifecycles.
 
+Individuals may maintain more than one wallet bundle, to ensure that aspects of their digital life do not undesirably bleed over from one domain into another.
+
 ![User Identity via Wallet Bundles][identity]
 
 ## Wallet
@@ -282,6 +284,8 @@ The process of wallet regeneration produces a new wallet, and eventually there m
 However, if no such pristine wallet is available to route tokens into, a shadow wallet is created instead. Shadow wallets are temporary wallets with no keys (therefore no `position` or `wallet_address` fields defined), only a wallet bundle assignment.
 
 Shadow wallets can be used for deposit routing, however no transactions may be signed by them, and therefore any received tokens may not be used until the shadow wallet is "claimed". The process of claiming a shadow wallet is equivalent to retroactively creating a wallet for the given token, which will automatically receive any collected balance from the shadow wallet.
+
+![Claiming a Shadow Wallet][shadow]
 
 ## Buffer
 
@@ -374,7 +378,7 @@ const response = await client.createMeta( {
     } );
 ```
 
-and here is how the `LicensePlate` schema is queried:
+and here is how you might query the `LicensePlate` schema to get metadata for all license plates newer than the year 2010:
 
 ```javascript
 const response = await client.queryMeta( {
@@ -600,15 +604,10 @@ Simply repeat Step 6 for each of the bond candidates. If the verification algori
 
 The molecule *M* and all of its bonds {*M*<sub>1</sub>, ..., *M*<sub>t</sub>} needs to be verified for integrity according to its type, using the verifying node’s currently available local data as reference. The verification process may group multiple unverified molecules together to ensure that possible double-spend attacks are much harder to execute:
 
-**For *V* molecules:**
+**For *V* and *B* molecules:**
 
 1. Collect all primary atoms in {*M*, *M*<sub>1</sub>, ..., *M*<sub>t</sub>} featuring the same token *T* and wallet bundle *B*, and combine their aggregate value as *V*<sub>total</sub>. 
 2. Check to ensure that GetWalletTokenBalance( *B*, *T* ) >= *V*<sub>total</sub>, meaning there is enough tokens to cover not just *M*, but any secondary bond candidate as well. If there is not, reject *M*.
-
-**For *F* molecules:**
-
-1. Check all secondary bond candidates to ensure no other molecules are referencing token *T*’s non-fungible unit *F*. If a match is found, reject *M*.
-2. Check to ensure that GetWalletTokenBalance( *B*, *T*, *F* ) == true, meaning that non-fungible unit *F* is indeed present in wallet bundle *B*. If not, reject *M*.
 
 **For *M* molecules:**
 
@@ -730,7 +729,7 @@ This simply involves checking for the presence of *M*<sub>new</sub>’s `molecul
 
 Knish.IO nodes operating in “lite mode” forego the receipt and storage of other nodes’ molecules in favor of querying peers to verify balance availability for other wallets.
 
-Lite nodes are able to generate only a limited subset of molecular isotopes (*V*, *F*, *M*), and do not perform tip selection or bonding algorithms on externally generated molecules, as they do not receive peer broadcasts.
+Lite nodes are able to generate only a limited subset of molecular isotopes (*V*, *B*, *M*), and do not perform tip selection or bonding algorithms on externally generated molecules, as they do not receive peer broadcasts.
 
 This mode is designed for mobile peer-to-peer exchange of data / token as well as any applications that do not require storing the entire ledger.
 
@@ -963,3 +962,4 @@ This section describes the proposed relational database structure that nodes may
 [infrastructure]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/infrastructure.png?raw=true "Knish.IO Peering Infrastructure"
 [matching]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/matching.png?raw=true "Knish.IO Decentralized Exchange Buffer Trade Matching"
 [identity]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/identity.png?raw=true "User Identity via Wallet Bundles"
+[shadow]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/shadow.png?raw=true "Claiming a Shadow Wallet"
