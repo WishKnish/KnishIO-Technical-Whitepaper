@@ -261,6 +261,10 @@ When sending tokens to a user, their wallet bundle may be used in lieu of a reci
 
 Wallet bundles are identified by a unique 64-character identifier called a `bundleHash`, which is used interchangeably with a wallet address for sending tokens to a third party.
 
+Every virtual object created on the ledger, including tokens, meta assets, and even molecules and their atoms, is tied to the wallet bundle that created it, ensuring that reputation and continuity of identity is maintained throughout the objects' lifecycles.
+
+![User Identity via Wallet Bundles][identity]
+
 ## Wallet
 
 Wallets are virtual buckets for storing assets (tokens) and WOTS+ keys for signing molecules or encryption keys for encrypting data, and may be employed in the more traditional sense (users sending and receiving cryptocurrency payments or NFTs), or in more exotic use-case-specific ways (for example, facilitating peer-to-peer hyper-secure communications via constantly-changing encryption keys).
@@ -958,3 +962,4 @@ This section describes the proposed relational database structure that nodes may
 [nakamoto]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/nakamoto.png?raw=true "Nakamoto Coefficient Algorithm"
 [infrastructure]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/infrastructure.png?raw=true "Knish.IO Peering Infrastructure"
 [matching]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/matching.png?raw=true "Knish.IO Decentralized Exchange Buffer Trade Matching"
+[identity]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/identity.png?raw=true "User Identity via Wallet Bundles"
