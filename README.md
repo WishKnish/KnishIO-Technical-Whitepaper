@@ -347,6 +347,9 @@ Fungibility is defined as the ability of an asset to be exchanged for other indi
 
 - **Stackable:** Knish.IO introduces a third fungibility property called "stackable" - also sometimes called "partially fungible". This refers to assets that exhibit properties of both fungible, and non-fungible assets. If I wanted to sell joint ownership in my Lebron James basketball card to 10 different people, I would issue 10 units of a "stack" representing the basketball card (which itself is non-fungible), but with 10 units (each of which is fungible). The same token supply might also contain a stack for a Stephen Curry basketball card, too, and any others, without commingling their individual units.
 
+
+- **3D Mesh (in development):** The ability to measure and manipulate token "amounts" using mutable 3D Meshes is conveyed by the "mesh" fungibility mode. Mesh tokens record 3D mesh coordinates in the form of metadata, and an integrated geometry engine helps prevent collisions and ensure that tokens are split and transmitted fairly. This type of token is appropriate for land rights and other geological use-cases.
+
 ## Replenishability
 
 Whether or not a token supply can be replenished after its initial minting is determined by the `replenishable` property.
@@ -360,9 +363,15 @@ There are also two replenishment modes supported:
 
 ## Bindability
 
-The ability of tokens to get "stuck" to a wallet is defined by the token's `bindable` property. Bindable tokens may be transferred to another user's wallet only by the originator of the token - everyone else can only burn them.
+The ability of tokens to get "stuck" to a wallet is defined by the token's `bindable` property, which contains a scalar value representing the number of times the token may be transferred to another user by someone who is not the originator of the token.
 
-This type of token is appropriate for use in credentialing scenarios: for example, if Alice takes a college class and receives a credit in the form of a bindable token, she will not be able to transfer the credit to Bob - he will need to take the class himself.
+Every time a bindable token is transferred, the length of the transfer chain is compared with the `bindable` value to determine whether the transfer is permitted.
+
+For example, if Alice mints a token with a `bindable` setting of `2`, she can transfer it to Bob (chain length: `0`), who transfers it to Charlie (chain length: `1`), who gives it to David (chain length: `2`), but now David cannot give it anyone else because the chain length will exceed the maximum allowed length.
+
+This type of token is appropriate for use in credentialing scenarios: for example, if Alice takes a college class and receives a credit in the form of a bindable token with a maximum chain length of `0`, she will not be able to transfer the credit to Bob - he will need to take the class himself.
+
+Voting is another scenario where bindable tokens are essential: If Alice gets a "vote" token with a maximum chain length of `1`, she can give it to her favorite candidate, and that's where it will permanently stay to be counted. If she gives her vote to someone else to vote on her behalf, they will not be able to: the token will be bound to their wallet permanently.
 
 ---
 
