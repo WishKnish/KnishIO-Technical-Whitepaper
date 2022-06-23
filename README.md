@@ -1,7 +1,12 @@
 <div style="text-align:center">
-  <img src="https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/KnishIO-Logo.png" alt="Knish.IO: Post-Blockchain Platform" />
+
+![Knish.IO: Post-Blockchain Platform][logo]\
+[info@wishknish.com](mailto:info@wishknish.com) | [https://wishknish.com](https://wishknish.com)\
+Authored by [Eugene Teplitsky](https://github.com/EugeneTeplitsky)
+
 </div>
-<div style="text-align:center">info@wishknish.com | https://wishknish.com</div>
+
+---
 
 # Technical Whitepaper v6.0
 
@@ -102,9 +107,12 @@ We see the following as critical sources of friction slowing or stopping consume
 
 1. **Storage of secret keys.** Forcing users to rely on software wallets, hardware wallets, paper wallets, cold storage, and other options for keeping a secret key is a lot to ask of consumers, especially when all they want to do is buy a cup of coffee with the tokens in their wallet. By leveraging biometric signatures and other modern passwordless mechanisms in lieu of a secret key, users can skip the overwhelming storage options, and rely purely on device sensors and (optionally) two-factor authentication to derive their signature each time they need to authorize an operation.
 
+
 2. **Gas.** The concept of having to first purchase a supply of tokens before being able to transact on a ledger is inherently damaging to consumer uptake. Gas is used by Ethereum and many other distributed ledgers to subsidize verification by validators, but in the case of Knish.IO, validation is performed on random molecules by the entity bonding a new molecule into the ledger, essentially paying it forward, and removing the need for gas.
 
+
 3. **Address naming convention.** A typical Ethereum address looks like this: 0xec824C1aF7304727eC92c71FfFEeDc0d6C38Eb0D. Imagine trying to tell a friend where to send a payment. Unless you do a lot of copying and pasting, or rely on a QR-code / NFC scanning solution, it will be very difficult indeed. Knish.IO introduces the concept of “slugs” - alphanumeric reference strings that are defined by the user, to give their Knish.IO bundle address a friendly, memorable name.
+
 
 4. **Node administration and governance.** If you are adventurous enough to deploy your own node, users can expect potentially intimidating command line deployment, configuration via direct file editing, and a general lack of flexibility in how the node is utilized. Conversely, one way of administering Knish.IO nodes is via KnishOS - a user-friendly GUI designed for node administration, digital asset / NFT management, and distributed ledger governance, as well as for e-commerce and general content management, turning a passive node into a potential online community and a source of revenue.
 
@@ -165,10 +173,14 @@ Given the inefficiencies inherent in current-generation blockchain technologies,
 To this end, we introduce the concept of **cells**, **molecules**, and **atoms**.
 
 - **Atoms** are sub-transactions that only perform a single, monodirectional action, such as removing X tokens from one wallet, adding Y tokens to another wallet, or contributing secure metadata to a virtual schema.
+
+
 - **Molecules** are bundles of atoms which are either accepted or rejected all at once, and bond to (reference) a number of previous transactions to help facilitate Knish.IO’s federated consensus model.
+
+
 - **Cells** are sharded sub-ledgers within the decentralized DAG environment, each serving one specific application, and defining rules for the behavior of every molecule within it.
 
-- Taken together, the collection of cells, molecules, and atoms can be described as an **organism**.
+Taken together, the collection of cells, molecules, and atoms can be described as an **organism**.
 
 By leveraging cells, molecules, and atoms, Knish.IO is capable of a network-bound scalability and transaction settlement within 5 seconds, regardless of the transactional volume. In fact, as the network grows, we fully expect this interval to shrink further.
 
@@ -213,14 +225,32 @@ A molecule contains at least one atom. Each atom comes in one of several single-
 Supported atomic isotopes, as of the writing of this document, are:
 
 - **Value** (*V*) - moves fungible scalar value, non-fungible unit objects, or partially fungible batches of scalar value from one wallet to another. V-atoms always come in triples: the first atom removes tokens from the source wallet; the second adds tokens to the destination wallet; and the third places the remaining tokens into a new wallet that will replace the first.
+
+
 - **Buffer** (*B*) - identical functionality to *V*, but operating on *allowance buffers* rather than *wallets*, typically used for peer-to-peer decentralized exchange and token staking scenarios.
+
+
 - **Metadata** (*M*) - assigns structured metadata (key:value pairs) to some arbitrary Meta Asset instance referenced by a class and unique identifier.
+
+
 - **Creation** (*C*) - declares the creation of a new virtual asset, which can take the form of a Token, a Wallet, or a Meta Asset class.
+
+
 - **Rules** (*R*) - used to describe granular policies (read, write, self-destruct, and logging) associated with some Meta Asset, as well as automation workflows and callbacks.
+
+
 - **Peering** (*P*) - used for initiating peer invite, coordinating handshakes between peers for the purpose of coordinating ledger states across diverse machines.
+
+
 - **Identity Continuity** (*I*) - (also called “ContinuID”) used for establishing a chain of personal custody between multiple molecules. Each transaction signed with the USER wallet requires that one I isotope is always present.
+
+
 - **User Access** (*U*) - used for requesting and managing personal access tokens for accessing privileged ledger activities and data.
+
+
 - **Token Request** (*T*) - used to request a specific type of Token from a federated node. If requirements are fulfilled, the node will sign and issue a V-isotope molecule completing the transfer.
+
+
 - **Append Request** (*A*) - used to request modifications of metadata from a federated node. If requirements are fulfilled, the node will sign and issue a M-isotope molecule updating the requested metadata.
 
 The first atom in a molecule is considered the “signing atom” and is critical in the signing and validation process. For any molecules that involve the movement of tokens, the first atom must be signed with the wallet (or buffer) from which tokens are being withdrawn; For all other types of modules, the first atom must be signed with the system-reserved USER token wallet.
@@ -305,16 +335,34 @@ Tokens are virtual representations of a particular asset or utility, and may rep
 
 Tokens are stored in users’ wallets. Each wallet address can accommodate only a single type of token, so a user holding multiple tokens would have a wallet address for each of them, each with its own position for signing molecules.
 
-There are presently three fungibility modes supported:
+## Fungibility
 
-1. **Fungible** tokens rely on the `balance` field of a wallet to track how much balance remains. This is the "default" behavior.
-2. **Non-fungible tokens** rely on `token_units` to describe unique nonfungible units of the token using structured metadata.
-3. **Partially-fungible ("stackable") tokens** use a combination of `balance`, `batch_id`, and metadata attached to the wallet and/or token to fulfill their use case.
+Fungibility is defined as the ability of an asset to be exchanged for other individual assets of the same type. Knish.IO tokens have a `fungibility` property that defines their fungibility behavior, and falls into one of the following categories:
+
+- **Fungible:** Money is fungible: a certain amount of pennies can be exchanged for the same amount of other pennies - it doesn't matter which specific pennies you receive, as long as the amount is equal. This is the "default" token behavior, and is appropriate for commerce, loyalty points, token-gated moderation, and other use-cases where some amount of tokens is expended or earned.
+
+
+- **Non-Fungible:** Non-fungible assets, on the other hand, are different from one individual unit to another. For example, a Lebron James basketball card is not the same as a Stephen Curry basketball card, even though they are both basketball cards. Various artwork NFTs have been a popular way of leveraging this type of token, but there are many other uses for it in supply chain, e-voting, and more.
+
+
+- **Stackable:** Knish.IO introduces a third fungibility property called "stackable" - also sometimes called "partially fungible". This refers to assets that exhibit properties of both fungible, and non-fungible assets. If I wanted to sell joint ownership in my Lebron James basketball card to 10 different people, I would issue 10 units of a "stack" representing the basketball card (which itself is non-fungible), but with 10 units (each of which is fungible). The same token supply might also contain a stack for a Stephen Curry basketball card, too, and any others, without commingling their individual units.
+
+## Replenishability
+
+Whether or not a token supply can be replenished after its initial minting is determined by the `replenishable` property.
 
 There are also two replenishment modes supported:
 
 1. **Replenishable** tokens can be re-issued as needed after creation, and there is no limit on the maximum supply amount.
+
+
 2. **Non-Replenishable** tokens cannot be re-issued, so the initial supply minted will represent the final maximum supply amount.
+
+## Bindability
+
+The ability of tokens to get "stuck" to a wallet is defined by the token's `bindable` property. Bindable tokens may be transferred to another user's wallet only by the originator of the token - everyone else can only burn them.
+
+This type of token is appropriate for use in credentialing scenarios: for example, if Alice takes a college class and receives a credit in the form of a bindable token, she will not be able to transfer the credit to Bob - he will need to take the class himself.
 
 ---
 
@@ -400,6 +448,8 @@ Knish.IO generally supports arbitrarily-structured metadata (no limitations on w
 There are 2 ways of accomplishing this:
 
 1. **Define your own schema:** Custom schema structure may be provided during meta asset creation when setting `metaType` to "MetaType" and `metaId` to the name of the new meta asset class. The `meta` object will supply the schema structure. Subsequent creation of meta assets of the new meta asset class will have to adhere to the defined schema.
+
+
 2. **Reference an external schema:** Knish.IO can be extended to support external schemas from [Schema.org](https://schema.org/), [GS1](https://gs1.org), [NIEM](https://www.niem.gov/), and others.
 
 ---
@@ -963,3 +1013,4 @@ This section describes the proposed relational database structure that nodes may
 [matching]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/matching.png?raw=true "Knish.IO Decentralized Exchange Buffer Trade Matching"
 [identity]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/identity.png?raw=true "User Identity via Wallet Bundles"
 [shadow]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/shadow.png?raw=true "Claiming a Shadow Wallet"
+[logo]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/KnishIO-Logo.png "Knish.IO: Post-Blockchain Platform"
