@@ -877,7 +877,28 @@ KnishOS also provides a more specialized UX for managing Rules to fulfill the ne
 
 ## Policies
 
-Policies are a specialized set of properties contributed via *R* isotopes that govern data access and privileges 
+Policies are a specialized set of properties contributed via *R*-isotopes that govern data access and privileges for specific meta assets. Policies are applied on a per-meta-key basis, allowing granular control over privileged data across the Knish.IO ledger.
+
+There are four types of policies available:
+
+1. **Read Policy:** determines which wallet bundles are able to retrieve metadata via `queryMeta` methods. Default behavior is for all wallet bundles to have unrestricted read access.
+
+
+2. **Write Policy:** determines which wallet bundles are able to contribute new metadata via `createMeta` methods. Default behavior is for only the original meta asset creator to have write access.
+
+
+3. **Destruct Policy:** determines how long a metadata field remains on the ledger before it "self-destructs" by causing its contents to be replaced by irreversible hashes.
+
+
+4. **Logging Policy:** determines whether or not attempts to access this metadata field should be logged by the nodes, forming a full audit trail.
+
+## Allowances
+
+Allowances are token quantities designated by their owner to allow for manipulation by the Knish.IO ledger without the owner's explicit signature on every resulting transaction. Allowances are expressed through the use of Buffers - special wallets that users may shift tokens into using *V-B-V*-molecules.
+
+Every time a new *V-B-V*-molecule introduces new token supply into the buffer, the ledger is able to automatically match the incoming buffer with a previously-created, unexpended buffer that meets the new offer's pricing requirements.
+
+When that happens, a pair of local *B-V-B*-molecules is created by every node that processes the incoming buffer, shifting the whole or partial balance of both the new buffer and the matched buffer into the participating users' wallets, thereby satisfying at least one of the trades fully.
 
 ---
 
