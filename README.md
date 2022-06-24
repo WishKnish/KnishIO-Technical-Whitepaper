@@ -1,6 +1,11 @@
 <div style="text-align:center">
 
-![Knish.IO: Post-Blockchain Platform][logo]\
+![Knish.IO: Post-Blockchain Platform][logo]
+
+</div>
+
+<div style="text-align:center">
+
 [info@wishknish.com](mailto:info@wishknish.com) | [https://wishknish.com](https://wishknish.com)\
 Authored by [Eugene Teplitsky](https://github.com/EugeneTeplitsky)
 
@@ -350,11 +355,11 @@ Fungibility is defined as the ability of an asset to be exchanged for other indi
 
 - **3D Mesh (in development):** The ability to measure and manipulate token "amounts" using mutable 3D Meshes is conveyed by the "mesh" fungibility mode. Mesh tokens record 3D mesh coordinates in the form of metadata, and an integrated geometry engine helps prevent collisions and ensure that tokens are split and transmitted fairly. This type of token is appropriate for land rights and other geological use-cases.
 
-## Replenishability
+## Supply
 
-Whether or not a token supply can be replenished after its initial minting is determined by the `replenishable` property.
+Whether or not a token supply can be replenished after its initial minting is determined by the `supply` property.
 
-There are also two replenishment modes supported:
+There are also two supply replenishment modes supported:
 
 1. **Replenishable** tokens can be re-issued as needed after creation, and there is no limit on the maximum supply amount.
 
@@ -363,11 +368,11 @@ There are also two replenishment modes supported:
 
 ## Bindability
 
-The ability of tokens to get "stuck" to a wallet is defined by the token's `bindable` property, which contains a scalar value representing the number of times the token may be transferred to another user by someone who is not the originator of the token.
+The ability of tokens to get "stuck" to a wallet is defined by the token's `bindability` property, which contains a scalar value representing the number of times the token may be transferred to another user by someone who is not the originator of the token.
 
-Every time a bindable token is transferred, the length of the transfer chain is compared with the `bindable` value to determine whether the transfer is permitted.
+Every time a bindable token is transferred, the length of the transfer chain is compared with the `bindability` value to determine whether the transfer is permitted.
 
-For example, if Alice mints a token with a `bindable` setting of `2`, she can transfer it to Bob (chain length: `0`), who transfers it to Charlie (chain length: `1`), who gives it to David (chain length: `2`), but now David cannot give it anyone else because the chain length will exceed the maximum allowed length.
+For example, if Alice mints a token with a `bindability` setting of `2`, she can transfer it to Bob (chain length: `0`), who transfers it to Charlie (chain length: `1`), who gives it to David (chain length: `2`), but now David cannot give it anyone else because the chain length will exceed the maximum allowed length.
 
 This type of token is appropriate for use in credentialing scenarios: for example, if Alice takes a college class and receives a credit in the form of a bindable token with a maximum chain length of `0`, she will not be able to transfer the credit to Bob - he will need to take the class himself.
 
@@ -482,7 +487,7 @@ This procedure involves the generation of a private key for the next available a
 
 ## Step 1: Client obtains biometric secret
 
-Each molecule must be approved by the sender, and to that end an external biometric solution may be utilized to transform the sender’s face, fingerprints, and/or voice print (or a combination of any of the above) into a unique keypair.
+Each molecule must be approved by the sender, and to that end an external biometric solution may be utilized to transform the sender’s face, fingerprints, and/or voice print (or a combination of the above) into a unique keypair.
 
 Alternatively, other forms of authentication may be used, including OAuth, NFC, smart cards, and other types of credentials.
 
@@ -629,7 +634,7 @@ A **Markov Chain Random Walk** (Weighted Monte Carlo Random Walk) procedure must
     - *M*<sub>root</sub> has a `confidence` of 95% or higher
     - If no acceptable *M*<sub>root</sub> is found above, choose *M*<sub>origin</sub> as *M*<sub>root</sub>
 2. Choose a molecule *M*<sub>c</sub> out of *M*<sub>root</sub>'s cascade to "walk" to.
-    - If a total of *p* > 1 molecules are present in the cascade, then the probability of selecting a *M*<sub>c</sub>, with a `confidence` of *I*<sub>c</sub>, is equal to: ![Markov Chain Random Walk Probability][mcrw]
+    - If a total of *p* > 1 molecules are present in the cascade, then the probability of selecting a *M*<sub>c</sub>, with a `confidence` of *I*<sub>c</sub>, is equal to ![Markov Chain Random Walk Probability][mcrw]
     - This produces a range of probabilities depending on the relative `confidence` of *M*<sub>c</sub> compared with other molecules in the cascade, and ensures that even less-prominent molecules have a chance of being selected for analysis.
     - If *M*<sub>c</sub> has the same wallet bundle as *M* or any primary bond candidates thus far, it is ignored (can't walk over your own molecules).
     - If *p* == 1, walk to the sole available *M*<sub>c</sub>.
@@ -882,98 +887,157 @@ This section describes the proposed relational database structure that nodes may
 
 ## Relational Design: Molecule
 
-| Field Name | Field Type | Description |
-|------------|------------|-------------|
-| `molecular_hash` | string(64) | A hash of this molecule’s atoms, used to verify their integrity |
-| `cell_id` | string(36), null | Unique identifier for molecule’s cell; Matches the cell of the token referenced by the primary atom |
-| `bundle` | string(64) | Identifier for the bundle grouping the wallets together |
-| `status` | enum | Indicator of acceptance status: 'rejected', 'pending', 'accepted', 'broadcasted', 'received' |
-| `created_at` | timestamp | Creation timestamp |
-| `processed_at` | timestamp | Processing / validation timestamp |
-| `broadcasted_at` | timestamp | Broadcast timestamp |
-| `confirmed_at` | timestamp | Peer confirmation timestamp |
-| `atoms` | relation(has-many) | Collection of atoms in this molecule |
-| `bonds` | relation(many-to-many) | Collection of bonded molecules |
+| Field Name                        | Field Type             | Description                                                                         |
+|-----------------------------------|------------------------|-------------------------------------------------------------------------------------|
+| `molecular_hash`                  | string(64)             | A hash of this molecule’s atoms, used to verify their integrity                     |
+| `first_continu_id_molecular_hash` | string(64)             | Molecular hash of the first molecule in the current molecule's ContinuID chain      |
+| `cell_id`                         | string(36), null       | Unique identifier for the dApp's cell (which dApp is responsible for this molecule) |
+| `peer_slug`                       | string(16)             | Unique identifier of the peer from which the molecule was first received            |
+| `counterparty`                    | string(64)             | A hashed combination of the user's identifier and the cell slug, used for branching |
+| `bundle_hash`                     | string(64)             | Identifier for the wallet bundle responsible for this molecule                      |
+| `height`                          | unsigned int           | A measurement of how far this molecule is from the start of its chain               |
+| `confidence`                      | unsigned int           | An algorithmically determined confidence value that this transaction can be trusted |
+| `status`                          | enum                   | One of: 'rejected', 'pending', 'accepted', 'broadcasted', 'received', or 'local'    |
+| `created_at`                      | timestamp              | Creation timestamp                                                                  |
+| `processed_at`                    | timestamp              | Processing / validation timestamp                                                   |
+| `broadcasted_at`                  | timestamp              | Broadcast timestamp                                                                 |
+| `confirmed_at`                    | timestamp              | Peer confirmation timestamp                                                         |
+| `atoms`                           | relation(has-many)     | Collection of atoms in this molecule                                                |
+| `bonds`                           | relation(many-to-many) | Collection of bonded molecules                                                      |
 
 ## Relational Design: Bond
 
-| Field Name | Field Type | Description |
-|------------|------------|-------------|
-| `molecular_hash` | string(64) | Unique identifier for the molecule |
-| `bond_hash` | string(64) | Unique identifier for the reference molecule |
-| `created_at` | timestamp | Creation timestamp |
+| Field Name       | Field Type | Description                                  |
+|------------------|------------|----------------------------------------------|
+| `molecular_hash` | string(64) | Unique identifier for the molecule           |
+| `bond_hash`      | string(64) | Unique identifier for the reference molecule |
+| `created_at`     | timestamp  | Creation timestamp                           |
 
 ## Relational Design: Atom
 
-| Field Name | Field Type | Description |
-|------------|------------|-------------|
-| `molecular_hash` | string(64) | Unique identifier for the molecule to which this atom belongs |
-| `position` | unsigned integer | Position of this atom within its molecule, which is also used to generate the appropriate private key for the originating wallet. |
-| `wallet_address` | string(64) | Address for the affected wallet |
-| `isotope` | string(1) | Defines the behavior of this atom. Can be set to V, F, M, C, P, or R |
-| `token` | string(128), null | For V, F, or C: Optionally hashed identifier for associated token; For P: Not needed |
-| `value` | unsigned integer | For V atoms only, used to transmit amounts of value; Assumed to be negative for primary V atoms; otherwise, positive |
-| `meta_type` | string(64), null | For M: The polymorphic type of the recipient of metadata |
-| `meta_id` | string(128), null | For F: Optionally hashed identifier or the specific non-fungible unit being transacted with; For M, R: Optionally hashed identifier for the object receiving the metadata; For V, F, or C: Not needed; For P: Hash of the identifier for the wallet bundle used to authenticate the peering handshake |
-| `meta` | json, null | For M: A JSON-formatted store for metadata being conveyed by this molecule |
-| `ots_fragment` | string(2048) | Contains a fragment of the sender wallet’s OTS |
-| `created_at` | timestamp | Current time of creation | 
+| Field Name       | Field Type          | Description                                                                 |
+|------------------|---------------------|-----------------------------------------------------------------------------|
+| `molecular_hash` | string(64)          | Unique identifier for the molecule to which this atom belongs               |
+| `position`       | string(64), null    | Salt used to generate a private key for the originating wallet.             |
+| `wallet_address` | string(64), null    | Public key of the affected wallet                                           |
+| `isotope`        | string(1)           | Defines the behavior of this atom. Can be set to any supported isotope name |
+| `token_slug`     | string(16)          | Unique identifier of the token used by the wallet in this atom              |
+| `batch_id`       | string(64), null    | Unique identifier of the batch (or "stack") used to group stackable tokens  |
+| `value`          | double(65,18), null | Used to describe scalar amounts of value for transfer purposes              |
+| `meta_type`      | string(36), null    | Polymorphic class name of schema receiving provided metadata                |
+| `meta_id`        | string(256), null   | Polymorphic identifier of the class instance receiving provided metadata    |
+| `metas_json`     | longtext, null      | A JSON structured store for metadata being conveyed by this molecule        |
+| `index`          | unsigned int        | Describers the order of the atom inside its molecule                        |
+| `ots_fragment`   | string(2048), null  | Contains a fragment of the sender wallet’s OTS                              |
+| `created_at`     | timestamp, null     | Timestamp of creation                                                       | 
+| `executed_at`    | timestamp, null     | Timestamp of execution by current node                                      | 
 
 ## Relational Design: Cell
 
-| Field Name | Field Type | Description |
-|------------|------------|-------------|
-| `slug` | string(36) | Unique identifier (GUID or slug) |
-| `title` | string(128) | A friendly human-readable title for this cell |
-| `consensus_algorithm` | string(36) | Identifier for the consensus algorithm to be used within this cell |
-| `virtual_machine` | string(36) | Identifier for the virtual machine to be used within this cell |
-| `hashing_algorithm` | string(36) | Identifier for the hashing algorithm to be used within this cell (eg: SHA3-512, KangarooTwelve, SHAKE256, BLAKE2, etc.) |
-| `status` | enum | Indicator of cell status: 'stopped', 'paused', 'started', 'archived' |
-| `created_at` | timestamp | Creation timestamp |
-| `molecules` | relation(has-many) | Collection of molecules in this cell |
-| `tokens` | relation(has-many) | Collection of tokens in this cell | 
-
-## Relational Design: Meta
-
-| Field Name | Field Type | Description |
-|------------|------------|-------------|
-| `molecular_hash` | string(64) | The molecule's identifier that has supplied this meta |
-| `position` | unsigned integer | The position of the atom within the molecule that supplied this meta |
-| `key` | string(64) | The index identifying the data record being stored |
-| `value` | longtext | A flexible store for metadata stored by the given model |
-| `target_type` | string(64) | Type of the object model to which this data is attached | 
-| `target_id` | string(128) | Identifier for the object model to which this data is attached |
-| `created_at` | timestamp | Creation timestamp |
-| `revoked_at` | timestamp | Revocation timestamp |
+| Field Name            | Field Type         | Description                                                      |
+|-----------------------|--------------------|------------------------------------------------------------------|
+| `cell_slug`           | string(36)         | Unique identifier (GUID or slug)                                 |
+| `title`               | string(128)        | A friendly human-readable title for this cell                    |
+| `query_count_24h`     | unsigned int       | Number of queries generated by this dApp in the past 24 hours    |
+| `mutation_count_24h`  | unsigned int       | Number of mutations received from this dApp in the past 24 hours |
+| `rejection_count_24h` | unsigned int       | Number of rejected molecules from this dApp in the past 24 hours |
+| `token_count`         | unsigned int       | Number of unique token slugs minted by this dApp                 |
+| `rule_count`          | unsigned int       | Number of active rules operating on behalf of this dApp          |
+| `status`              | enum               | One of: 'stopped', 'paused', 'started', 'archived'               |
+| `created_at`          | timestamp, null    | Timestamp of creation                                            |
+| `updated_at`          | timestamp, null    | Timestamp of last activity                                       |
+| `molecules`           | relation(has-many) | Collection of molecules in this cell                             |
+| `tokens`              | relation(has-many) | Collection of tokens in this cell                                | 
 
 ## Relational Design: Token
 
-| Field Name | Field Type | Description |
-|------------|------------|-------------|
-| `slug` | string(36) | Unique identifier |
-| `title` | string(128) | A friendly human-readable title for this token |
-| `supply_type` | enum | Determines the supply type: 'replenishable', 'limited' |
-| `fungibility` | enum | Determines the fungibility style: 'fungible', 'non-fungible', 'mesh' |
-| `supply` | unsigned integer, null | Maximum supply of the token, if applicable |
-| `decimals` | unsigned integer, null | How many decimal places a fungible token is subdivided, if applicable |
-| `status` | enum | Indicator of token status: 'stopped', 'paused', 'started', 'archived' |
-| `created_at` | timestamp | Creation timestamp |
-| `updated_at` | timestamp | Update timestamp |
-| `molecules` | relation | Collection of molecules involving this token |
-| `wallets` | relation(has-many) | Collection of wallets containing a balance in this token | 
+| Field Name    | Field Type          | Description                                                           |
+|---------------|---------------------|-----------------------------------------------------------------------|
+| `token_slug`  | string(36)          | Unique identifier (GUID or slug) - typically used as a ticker symbol  |
+| `title`       | string(64)          | A friendly human-readable title for this token                        |
+| `fungibility` | enum                | One of: 'fungible', 'nonfungible', 'stackable', 'mesh'                |
+| `supply`      | enum                | One of: 'replenishable', 'limited'                                    |
+| `bindability` | unsigned int        | Maximum length of a transfer chain for this token                     |
+| `amount`      | double(65,18), null | Maximum supply of the token, if applicable                            |
+| `decimals`    | unsigned int, null  | How many decimal places a fungible token is subdivided, if applicable |
+| `icon`        | string(1000), null  | Used to store binary image data for the icon / symbol of this token   |
+| `created_at`  | timestamp           | Timestamp of creation                                                 |
+| `molecules`   | relation            | Collection of molecules involving this token                          |
+| `wallets`     | relation(has-many)  | Collection of wallets containing a balance in this token              | 
+
+## Relational Design: Wallet Bundle
+
+| Field Name    | Field Type | Description                                    |
+|---------------|------------|------------------------------------------------|
+| `bundle_hash` | string(64) | Unique identifier for a Knish.IO user identity |
+| `created_at`  | timestamp  | Creation timestamp                             |
+
 
 ## Relational Design: Peer
 
-| Field Name | Field Type | Description |
-|------------|------------|-------------|
-| `address` | string(45) | IPv4 address. IPv6 address, or international SMS-ready telephone number of the peer |
-| `molecular_hash` | string(64) | Unique identifier for molecule whose integrity level represents the integrity of this peer |
-| `bundle` | string(64) | Wallet bundle of the peer owner, used for P2P messaging |
-| `retries` | unsigned integer(1) | Number of consecutive times this peer failed to respond to a broadcast |
-| `broadcasted_molecules` | relation(many-to-many) | Collection of molecules that were successfully broadcast to this peer |
-| `received_molecules` | relation(many-to-many) | Collection of molecules that were successfully received from this peer |
-| `rejected_molecules` | relation(many-to-many) | Collection of molecules received from the peer that were rejected due to invalidity |
-| `status` | enum | Indicator of peer status: 'rejected', 'pending', 'accepted' | 
+| Field Name              | Field Type             | Description                                                                         |
+|-------------------------|------------------------|-------------------------------------------------------------------------------------|
+| `host`                  | string(255)            | The unique hostname or IP address of the peer                                       |
+| `peer_slug`             | string(36)             | Unique identifier (GUID or slug)                                                    |
+| `peer_type`             | enum                   | One of: 'sender', or 'recipient'                                                    |
+| `title`                 | string(64), null       | A friendly human-readable title for this peer                                       |
+| `molecular_hash`        | string(64), null       | Unique identifier for P-isotope molecule formalizing this peering relationship      |
+| `access_token`          | longtext, null         | Access token used by the peer to send broadcasts                                    |
+| `access_token_hash`     | string(255), null      | Unique hash of the peer access token                                                |
+| `cell_slugs`            | longtext, null         | A JSON structured store containing whitelist of cell slugs shared with this peer    |
+| `status`                | enum                   | One of: 'guest', 'rejected', 'pending', 'accepted'                                  | 
+| `sync_status`           | enum                   | One of: 'pending', 'processing', 'stopped', or 'finished'                           |
+| `sync_algorithm`        | string(255)            | Determines the algorithm used for synchronizing molecules                           |
+| `receive_count_24h`     | unsigned int           | Number of received broadcasts from this peer over a 24 hour period                  |
+| `send_count_24h`        | unsigned int           | Number of sent broadcasts to this peer over a 24 hour period                        |
+| `rejection_count_24h`   | unsigned int           | Number of rejected broadcasts from this peer over a 24 hour period                  |
+| `connection_count_24h`  | unsigned int           | Number of sync connections from this peer over a 24 hour period                     |
+| `wait_count_24h`        | unsigned int           | Number of times the peer was throttled over a 24 hour period                        |
+| `created_at`            | timestamp              | Timestamp of creation                                                               |
+| `broadcasted_molecules` | relation(many-to-many) | Collection of molecules that were successfully broadcast to this peer               |
+| `received_molecules`    | relation(many-to-many) | Collection of molecules that were successfully received from this peer              |
+| `rejected_molecules`    | relation(many-to-many) | Collection of molecules received from the peer that were rejected due to invalidity |
+
+## Relational Design: Peer Molecules
+
+| Field Name       | Field Type      | Description                                         |
+|------------------|-----------------|-----------------------------------------------------|
+| `peer_slug`      | string(36)      | Unique peer identifier (GUID or slug)               |
+| `peer_type`      | enum            | One of: 'sender', or 'recipient'                    |
+| `molecular_hash` | string(64)      | Unique identifier of the molecule we are describing |
+| `status`         | enum            | One of: 'rejected', 'pending', 'accepted'           | 
+| `created_at`     | timestamp, null | Creation timestamp                                  |
+| `confirmed_at`   | timestamp, null | Peer confirmation timestamp                         |
+
+## Relational Design: Rules
+
+| Field Name       | Field Type        | Description                                                         |
+|------------------|-------------------|---------------------------------------------------------------------|
+| `molecular_hash` | string(64)        | Unique identifier for the molecule contributing the rule            |
+| `position`       | string(64), null  | The position of the wallet signing for the rule                     |
+| `meta_type`      | string(36)        | Polymorphic class name for the meta asset we are tracking           |
+| `meta_id`        | string(255), null | Polymorphic instance identifier for the affected meta asset         |
+| `conditions`     | longtext          | JSON structured store for conditions that are applied to this rule  |
+| `callbacks`      | longtext          | JSON structured store for callbacks that are triggered by this rule |
+| `created_at`     | timestamp         | Creation timestamp                                                  |
+
+## Relational Design: Access Tokens
+
+| Field Name     | Field Type       | Description                                                                     |
+|----------------|------------------|---------------------------------------------------------------------------------|
+| `cell_slug`    | string(36)       | Unique identifier (GUID or slug) of the dApp asking for API privileges          |
+| `bundle_hash`  | string(64), null | The unique bundle identifier for the user requesting API privileges             |
+| `peer_slug`    | string(36), null | Used for authorizing peer communication with a specific peer                    |
+| `position`     | string(64), null | The position of the wallet used to request authorization                        |
+| `expiration`   | unsigned int     | How long the authorization lasts                                                |
+| `status`       | enum             | One of: 'pending', 'active', 'disabled'                                         |
+| `token`        | string(64)       | The actual authorization token string                                           |
+| `type`         | enum             | What type of authorization we are giving. One of: 'bundle', 'guest', or 'peer'  |
+| `abilities`    | text             | JSON structured store for the abilities / rights granted by this authorization  |
+| `encrypt`      | unsigned int     | The public key of the wallet used to request authorization (for encryption use) |
+| `pubkey`       | string(64), null | The public key of the wallet used to request authorization (for encryption use) |
+| `created_at`   | timestamp, null  | Creation timestamp                                                              |
+| `last_used_at` | timestamp, null  | Last use timestamp                                                              |
 
 # Sources Cited
 
