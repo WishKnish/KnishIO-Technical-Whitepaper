@@ -866,7 +866,7 @@ const rule = {
     }
   } ]
 };
-client.crateRule( metaType, metaId, [ rule ] );
+client.createRule( metaType, metaId, [ rule ] );
 ```
 
 Molecules that result from server-side Rule execution are not broadcasted to other nodes - each of them will execute their own local version of the same, based on agreed-upon distributed Rule metadata.
@@ -1044,21 +1044,23 @@ This section describes the proposed relational database structure that nodes may
 
 ## Relational Design: Access Tokens
 
-| Field Name     | Field Type       | Description                                                                     |
-|----------------|------------------|---------------------------------------------------------------------------------|
-| `cell_slug`    | string(36)       | Unique identifier (GUID or slug) of the dApp asking for API privileges          |
-| `bundle_hash`  | string(64), null | The unique bundle identifier for the user requesting API privileges             |
-| `peer_slug`    | string(36), null | Used for authorizing peer communication with a specific peer                    |
-| `position`     | string(64), null | The position of the wallet used to request authorization                        |
-| `expiration`   | unsigned int     | How long the authorization lasts                                                |
-| `status`       | enum             | One of: 'pending', 'active', 'disabled'                                         |
-| `token`        | string(64)       | The actual authorization token string                                           |
-| `type`         | enum             | What type of authorization we are giving. One of: 'bundle', 'guest', or 'peer'  |
-| `abilities`    | text             | JSON structured store for the abilities / rights granted by this authorization  |
-| `encrypt`      | unsigned int     | The public key of the wallet used to request authorization (for encryption use) |
-| `pubkey`       | string(64), null | The public key of the wallet used to request authorization (for encryption use) |
-| `created_at`   | timestamp, null  | Creation timestamp                                                              |
-| `last_used_at` | timestamp, null  | Last use timestamp                                                              |
+| Field Name     | Field Type       | Description                                                                    |
+|----------------|------------------|--------------------------------------------------------------------------------|
+| `cell_slug`    | string(36)       | Unique identifier (GUID or slug) of the dApp asking for API privileges         |
+| `bundle_hash`  | string(64), null | The unique bundle identifier for the user requesting API privileges            |
+| `peer_slug`    | string(36), null | Used for authorizing peer communication with a specific peer                   |
+| `position`     | string(64), null | The position of the wallet used to request authorization                       |
+| `expiration`   | unsigned int     | How long the authorization lasts                                               |
+| `status`       | enum             | One of: 'pending', 'active', 'disabled'                                        |
+| `token`        | string(64)       | The actual authorization token string                                          |
+| `type`         | enum             | What type of authorization we are giving. One of: 'bundle', 'guest', or 'peer' |
+| `abilities`    | text             | JSON structured store for the abilities / rights granted by this authorization |
+| `encrypt`      | unsigned int     | Whether or not end-to-end encryption is to be used                             |
+| `position`     | string(64), null | The position of the wallet used for end-to-end encryption                      |
+| `pubkey`       | string(64), null | The public key of the wallet used for end-to-end encryption                    |
+| `created_at`   | timestamp, null  | Creation timestamp                                                             |
+| `last_used_at` | timestamp, null  | Last use timestamp                                                             |
+| `updated_at`   | timestamp, null  | Update timestamp                                                               |
 
 # Sources Cited
 
