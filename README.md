@@ -1077,7 +1077,7 @@ This section describes the proposed relational database structure that nodes may
 11. U.S. Census Bureau Quick Facts https://www.census.gov/quickfacts/fact/table/US/HSD410220
 12. 80% of tech could be built outside IT by 2024, thanks to low-code tools https://venturebeat.com/2021/06/14/80-of-tech-could-be-built-outside-it-by-2024-thanks-to-low-code-tools/
 
-&copy; 2019, WishKnish Corp. All rights reserved.
+&copy; 2016-2022, WishKnish Corp. All rights reserved.
 
 [dag]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/dag.png?raw=true "Directed Acyclic Graph"
 [xmss]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/xmss_tree.png?raw=true "XMSS Tree"
