@@ -13,7 +13,7 @@ Authored by [Eugene Teplitsky](https://github.com/EugeneTeplitsky)
 
 ---
 
-# Technical Whitepaper v6.0
+# Technical Whitepaper v6.1
 
 ## Abstract
 
@@ -334,6 +334,25 @@ On the other hand, buffered assets can take advantage of rich server-side automa
 
 ---
 
+# Concept: ContinuID
+
+Continuity of Identity (or ContinuID, for short) is a key principle of Knish.IO transactional integrity and data ownership. The simplest way to think about ContinuID is like a relay race: a team of runners passes a baton from one to the next to ensure they get to the finish line first.
+
+In this example, the "team" is the Wallet Bundle, the "runners" are Wallets, and the baton is the designation of the next wallet that must take over. Passing the baton to a racer from another team, or to a racer out of order, is strictly prohibited.
+
+In practical applications, there are 2 primary ways ContinuID is utilized:
+
+1. **Wallet Remainders:** To ensure that the integrity of wallets remains secure after every transfer, the tokens' owner designates the next wallet in line to receive leftover tokens as part of the wallet regeneration process.
+
+
+2. ***I*-Isotope Atoms:** For non-token transactions involving the reserved **USER** wallet, the next **USER** wallet in line is designed by an *I*-isotope atom at the end of the molecule.
+
+The goal is to pass the baton to the next wallet, as defined by the user, and enforce this chain of custody. If any molecule arrives signed by a wallet which was not designated in the previous molecule via one of the above mechanisms, the molecule will be automatically rejected.
+
+![Illustration of ContinuID Relay Race][continuid]
+
+---
+
 # Model: Token
 
 Tokens are virtual representations of a particular asset or utility, and may represent fungible, non-fungible, and partially-fungible assets. Tokens may be traded, sold, or utilized as part of a digital ecosystem or application.
@@ -455,7 +474,7 @@ const response = await client.queryMeta( {
     } );
 ```
 
-## Custom Schemas
+## Concept: Custom Schemas
 
 Knish.IO generally supports arbitrarily-structured metadata (no limitations on which metadata `key` values are used), but sometimes it may be advantageous to define a fixed schema to which data must conform (a specific list of `key` values and their respective structure).
 
@@ -1079,34 +1098,35 @@ This section describes the proposed relational database structure that nodes may
 
 &copy; 2016-2022, WishKnish Corp. All rights reserved.
 
-[dag]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/dag.png?raw=true "Directed Acyclic Graph"
-[xmss]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/xmss_tree.png?raw=true "XMSS Tree"
-[create]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/create-token.png?raw=true "Create Token Screenshot"
-[organism]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/organism.png?raw=true "Knish.IO Organism Diagram"
-[molecule]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/molecule.png?raw=true "Knish.IO Molecule Diagram"
-[cascade]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/cascade.png?raw=true "Knish.IO Cascade Diagram"
-[atoms]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/atoms.png?raw=true "Knish.IO V and I Atom Arrangement"
-[cell]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/cell.png?raw=true "Knish.IO Cell Diagram"
-[bundle]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/bundle.png?raw=true "Knish.IO Bundle Diagram"
-[biometrics]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/biometrics.jpg?raw=true "Knish.IO Biometric UX"
-[vatom]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/vatom.png?raw=true "Knish.IO V-Isotope Molecule Diagram"
-[matom]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/matom.png?raw=true "Knish.IO M-Isotope Molecule Diagram"
-[walletkey]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/walletkey.png?raw=true "Wallet Key Generation"
-[address]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/address.png?raw=true "Wallet Address Generation"
-[mcrw]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/equation-mcrw.png?raw=true "Markov Chain Random Walk Probability"
-[rejection]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/equation-mcrw.png?raw=true "Rejection Probability"
-[secondary]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/equation-secondary.png?raw=true "Secondary Bond Equation"
-[peering]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/peering.png?raw=true "Knish.IO Peering Algorithm"
-[mrec]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/equation-mrec.png?raw=true "Set of Received Molecules"
-[mrejection]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/equation-peer-rejection.png?raw=true "Probability of Spontaneous Rejection"
-[mrej]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/equation-mrej.png?raw=true "Set of Rejected Molecules"
-[lite]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/litenode.png?raw=true "Lite Mode Node Diagram"
-[osmosis]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/equation-osmosis.png?raw=true "Set of Origin Cascades for Osmosis"
-[achievement]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/edit-achievement.jpg?raw=true "Edit Achievement Screenshot"
-[architecture]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/architecture.png?raw=true "Knish.IO Architecture Diagram"
-[nakamoto]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/nakamoto.png?raw=true "Nakamoto Coefficient Algorithm"
-[infrastructure]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/infrastructure.png?raw=true "Knish.IO Peering Infrastructure"
-[matching]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/matching.png?raw=true "Knish.IO Decentralized Exchange Buffer Trade Matching"
-[identity]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/identity.png?raw=true "User Identity via Wallet Bundles"
-[shadow]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/shadow.png?raw=true "Claiming a Shadow Wallet"
-[logo]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/KnishIO-Logo.png "Knish.IO: Post-Blockchain Platform"
+[dag]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/dag.png?raw=true "Directed Acyclic Graph"
+[xmss]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/xmss_tree.png?raw=true "XMSS Tree"
+[create]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/create-token.png?raw=true "Create Token Screenshot"
+[organism]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/organism.png?raw=true "Knish.IO Organism Diagram"
+[molecule]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/molecule.png?raw=true "Knish.IO Molecule Diagram"
+[cascade]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/cascade.png?raw=true "Knish.IO Cascade Diagram"
+[atoms]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/atoms.png?raw=true "Knish.IO V and I Atom Arrangement"
+[cell]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/cell.png?raw=true "Knish.IO Cell Diagram"
+[bundle]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/bundle.png?raw=true "Knish.IO Bundle Diagram"
+[biometrics]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/biometrics.jpg?raw=true "Knish.IO Biometric UX"
+[vatom]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/vatom.png?raw=true "Knish.IO V-Isotope Molecule Diagram"
+[matom]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/matom.png?raw=true "Knish.IO M-Isotope Molecule Diagram"
+[walletkey]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/walletkey.png?raw=true "Wallet Key Generation"
+[address]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/address.png?raw=true "Wallet Address Generation"
+[mcrw]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/equation-mcrw.png?raw=true "Markov Chain Random Walk Probability"
+[rejection]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/equation-mcrw.png?raw=true "Rejection Probability"
+[secondary]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/equation-secondary.png?raw=true "Secondary Bond Equation"
+[peering]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/peering.png?raw=true "Knish.IO Peering Algorithm"
+[mrec]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/equation-mrec.png?raw=true "Set of Received Molecules"
+[mrejection]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/equation-peer-rejection.png?raw=true "Probability of Spontaneous Rejection"
+[mrej]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/equation-mrej.png?raw=true "Set of Rejected Molecules"
+[lite]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/litenode.png?raw=true "Lite Mode Node Diagram"
+[osmosis]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/equation-osmosis.png?raw=true "Set of Origin Cascades for Osmosis"
+[achievement]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/edit-achievement.jpg?raw=true "Edit Achievement Screenshot"
+[architecture]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/architecture.png?raw=true "Knish.IO Architecture Diagram"
+[nakamoto]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/nakamoto.png?raw=true "Nakamoto Coefficient Algorithm"
+[infrastructure]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/infrastructure.png?raw=true "Knish.IO Peering Infrastructure"
+[matching]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/matching.png?raw=true "Knish.IO Decentralized Exchange Buffer Trade Matching"
+[identity]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/identity.png?raw=true "User Identity via Wallet Bundles"
+[shadow]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/shadow.png?raw=true "Claiming a Shadow Wallet"
+[logo]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/master/KnishIO-Logo.png "Knish.IO: Post-Blockchain Platform"
+[continuid]: https://raw.githubusercontent.com/WishKnish/KnishIO-Technical-Whitepaper/eugene-teplitsky-dev/continuid.png "Illustration of ContinuID Relay Race"
